@@ -1,24 +1,24 @@
-# Reqnroll.DSL
+# DSL.Reqnroll
 
-Reqnroll.DSL is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in variables, regular expressions and simple calculations.
+DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in variables, regular expressions and bespoke transformations.
 
-It's a re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library written originally by [wenyuansong](https://github.com/wenyuansong) and [JovialJerboa](https://github.com/JovialJerboa).
+It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll.
 
-**Background**:<br>
-In December 2024, Tricentis announced the end-of-life of the SpecFlow open source project. According to the announcement, SpecFlow reached its end-of-life on December 31, 2024. As of 1st January 2025, the SpecFlow GitHub projects are deleted and the support section of the specflow.org website is disabled.
+### Background
+In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0001432&id=post) announced the end-of-life of the SpecFlow open source project. According to the announcement, SpecFlow reached its end-of-life on December 31, 2024. As of 1st January 2025, the SpecFlow GitHub projects have been deleted and the support section of the specflow.org website is disabled.
 
-**Syntax**:<br>
+### Syntax
 ```
   [[ ]]                //double bracket in any text will trigger pattern matching 
   [[varName=value]]    //will create a variable named "varName" with value "value" 
   [[varName]]         //will get value of "varName", throw an error if "varName" is not defined
   [[varName=RegEx(patternText)]]  //RegEx() is a keyword that value is generated from patternText
-```  
-**How it works**: <br>
+``` 
+**How it works**:
    It actually creates key/value pairs in current ScenarioContext.
    So be careful not to conflict with your own context variables. 
 
-**Examples**: 
+## Examples: 
  
  - Create dynamic test data and refer it in another step
 ```
@@ -32,14 +32,14 @@ In December 2024, Tricentis announced the end-of-life of the SpecFlow open sourc
 ```
  - Same applies to Reqnroll tables:
 ```
- 	When create new user with the following details:
+     When create new user with the following details:
      |Field   | Value                                 |
      |UserName| [[name=RegEx([a-z]{5,8})]]            |	        
      |Password| [[pwd=RegEx([a-z]{3}[0-9]{3})]]       |
      Then verify can login with username="[[name]]" and password="[[pwd]]"
 ```   
 
- - Support customerise transformation
+ - Support bespoke transformation
 
 ```
      for example, you want to map Today to YYYY:MM:dd, add the following code in one of your Reqnroll steps 
@@ -54,26 +54,27 @@ In December 2024, Tricentis announced the end-of-life of the SpecFlow open sourc
  
  - Calculations are currently NOT supported but it can be done by customerisation as shown in project Examples
 
-Dependencies:
+## Dependencies
 * .NetFramework 4.6.2+ or .NetCore 2.0+
 * Reqnroll v2.2.1 +
 * Fare 2.1.2 +
 
-License: MIT (https://github.com/nowakpi/Reqnroll.DSL/blob/master/LICENSE)
+License: MIT (https://github.com/nowakpi/DSL.Reqnroll/blob/master/LICENSE)
 
-NuGet: https://www.nuget.org/packages/Reqnroll.DSL
+NuGet: https://www.nuget.org/packages/DSL.Reqnroll
 
 ## Installation
 
 - Install plugin from NuGet into your Reqnroll project.
 
-    PM> Install-Package Reqnroll.DSL
+    PM> Install-Package DSL.Reqnroll
  
-That's it!!!   
-
-Your project's App.config file will be automatically added the following lines to enable plugin:
+- In case you use App.config file, ensure the following lines have been added to enable plugin:
 ```
    <plugins>
-      <add name="Reqnroll.DSL" type="Runtime"/>
+      <add name="DSL" type="Runtime"/>
     </plugins>
  ```
+
+
+

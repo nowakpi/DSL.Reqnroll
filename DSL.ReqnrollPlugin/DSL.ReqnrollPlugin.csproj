@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+    <AssemblyName>DSL.ReqnrollPlugin</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DSL.Reqnroll</PackageId>
+    <Version>1.0.0</Version>
+    <Product>DSL Reqnroll Plugin</Product>
+    <Authors>Piotr Nowak</Authors>
+    <Company></Company>
+    <Description>
+		DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in variables, regular expressions and bespoke transformations. It's a re-write of SpecFlow.DSL library, written originally by Wenyuan(Ryan) Song and Liam Flanagan, to align it with Reqnroll.
+
+		Capabilities:
+		-> Create dynamic test data and refer it in another step
+		-> Create dynamic test data using regular expression
+		-> Simple calculations via bespoke transformations
+	</Description>
+    <Copyright>Copyright © 2025 Piotr Nowak</Copyright>
+    <PackageProjectUrl>https://github.com/nowakpi/DSL.Reqnroll</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nowakpi/DSL.Reqnroll</RepositoryUrl>
+    <PackageTags>Reqnroll DSL variables context</PackageTags>
+    <PackageReleaseNotes>v1.0.0: Introducing DSL.Reqnroll plugin</PackageReleaseNotes>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fare" Version="2.2.1" />
+    <PackageReference Include="Reqnroll.CustomPlugin" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Include="..\LICENSE.txt" Pack="true" PackagePath="\"/>
+	<None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
