@@ -4,8 +4,8 @@
 
 /packages
 /.vs/
-/Specflow.DSL.Examples/bin/
-/Specflow.DSL.Examples/obj/
-/Specflow.DSL.Examples/TestResults/
-/Specflow.DSL.SpecflowPlugin/bin/
-/Specflow.DSL.SpecflowPlugin/obj/
+/Reqnroll.DSL.Examples/bin/
+/Reqnroll.DSL.Examples/obj/
+/Reqnroll.DSL.Examples/TestResults/
+/Reqnroll.DSL.ReqnrollPlugin/bin/
+/Reqnroll.DSL.ReqnrollPlugin/obj/
