@@ -35,17 +35,17 @@ namespace Examples.Steps
         [Given(@"I have a cutomerise pattern mapping ""(.*)"" to ""(.*)""")]
         public void GivenIHaveACutomerisePatternMappingTo(string keyword, string value)
         {
-            ((IParameterTransform)
-                (_context.GetBindingInstance(typeof(IParameterTransform))))
-            .AddTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
+            ((IParameterTransformer)
+                (_context.GetBindingInstance(typeof(IParameterTransformer))))
+            .AddBespokeTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
         }
 
         [Given(@"I have a cutomerise pattern to support calculation")]
         public void GivenIHaveACutomerisePatternToSupportCalculation()
         {
-            ((IParameterTransform)
-                (_context.GetBindingInstance(typeof(IParameterTransform))))
-            .AddTransformer(s =>
+            ((IParameterTransformer)
+                (_context.GetBindingInstance(typeof(IParameterTransformer))))
+            .AddBespokeTransformer(s =>
             {
                 var m = Regex.Match(s, "([0-9]+)(\\+|\\-|\\*|\\/)([0-9]+)");
                 if (m.Success)

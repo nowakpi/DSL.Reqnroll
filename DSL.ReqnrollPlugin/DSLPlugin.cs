@@ -1,3 +1,4 @@
+using DSL.ReqnrollPlugin;
 using Reqnroll;
 using Reqnroll.Plugins;
 using Reqnroll.UnitTestProvider;
@@ -13,7 +14,7 @@ namespace DSL
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {
                 args.ObjectContainer.RegisterTypeAs<DSLTestRunner, ITestRunner>();
-                args.ObjectContainer.RegisterTypeAs<ParameterTransform, IParameterTransform>();
+                args.ObjectContainer.RegisterTypeAs<DSLParameterTransformer, IParameterTransformer>();
             };
         }
     }
