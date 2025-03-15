@@ -1,4 +1,4 @@
-using DSL;
+using DSL.ReqnrollPlugin;
 using Reqnroll;
 using FluentAssertions;
 using System.Text.RegularExpressions;

@@ -1,5 +1,5 @@
 ﻿@UT
-Feature: Examples
+Feature: Examples of variables use
 
 Scenario: number test
 	When entered int [[var=50]]
