@@ -13,8 +13,9 @@ namespace DSL.ReqnrollPlugin
         {
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {
+                args.ObjectContainer.RegisterTypeAs<CustomVariablesParameterTransformer, IParameterTransformer>(typeof(CustomVariablesParameterTransformer).FullName);
+                args.ObjectContainer.RegisterTypeAs<EnvironmentVariablesParameterTransformer, IParameterTransformer>(typeof(EnvironmentVariablesParameterTransformer).FullName);
                 args.ObjectContainer.RegisterTypeAs<ReqnrollPluginTestRunner, ITestRunner>();
-                args.ObjectContainer.RegisterTypeAs<CustomVariablesParameterTransformer, IParameterTransformer>();
             };
         }
     }
