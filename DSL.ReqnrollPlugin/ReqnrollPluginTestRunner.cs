@@ -8,7 +8,7 @@ namespace DSL.ReqnrollPlugin
     public sealed class ReqnrollPluginTestRunner : ITestRunner
     {
         private readonly ITestRunner _testRunner;
-        private readonly IParameterTransformer _transformer;
+        private readonly ITransformerAggregator _transformer;
         private string _testWorkerId;
 
         public FeatureContext FeatureContext => _testRunner.FeatureContext;
@@ -16,7 +16,7 @@ namespace DSL.ReqnrollPlugin
         public ITestThreadContext TestThreadContext => _testRunner.TestThreadContext;
         string ITestRunner.TestWorkerId { get => _testWorkerId; }
 
-        public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, IParameterTransformer tranformer)
+        public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, ITransformerAggregator tranformer)
         {
             _testRunner = new TestRunner(executionEngine);
             _transformer = tranformer;

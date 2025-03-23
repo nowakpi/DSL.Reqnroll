@@ -7,11 +7,12 @@ using Reqnroll;
 
 namespace DSL.ReqnrollPlugin
 {
-    public class CustomVariablesParameterTransformer : VariablesParameterTransformerBase, IParameterTransformer
+    public class UserVariableTransformer : VariablesParameterTransformer, IParameterTransformer
     {
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
+
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.CustomVariablesMatchConfig);
             return match == null ? inputString : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
         }
@@ -30,10 +31,7 @@ namespace DSL.ReqnrollPlugin
 
                 // apply RegEx
                 var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
-                if (regExM.Success)
-                {
-                    cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
-                }
+                if (regExM.Success) cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
 
                 var cxtKey = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);
                 scenarioContext[cxtKey] = cxtValue;

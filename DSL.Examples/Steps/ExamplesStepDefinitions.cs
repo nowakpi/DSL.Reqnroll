@@ -2,6 +2,8 @@ using DSL.ReqnrollPlugin;
 using Reqnroll;
 using FluentAssertions;
 using System.Text.RegularExpressions;
+using System;
+using System.Runtime.InteropServices;
 
 namespace Examples.Steps
 {
@@ -16,7 +18,7 @@ namespace Examples.Steps
         }
 
         [When(@"entered int (.*)")]
-        public void GivenEnteredInt(int p0)
+        public void WhenEnteredInt(int p0)
         {
 
         }
@@ -28,8 +30,20 @@ namespace Examples.Steps
         }
 
         [When(@"entered string ""(.*)""")]
-        public void GivenEnteredString(string p0)
+        public void WhenEnteredString(string p0)
         {
+        }
+
+        [When(@"executed on Windows machine")]
+        public void WhenExecutedOnWindowsMachine()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) throw new OperationCanceledException("Not a Windows machine.");
+        }
+
+        [When(@"environment variable ""(.*)"" has a value of ""(.*)""")]
+        public void WhenEnvironmentVariableHasValue(string varName, string varValue)
+        {
+            Environment.SetEnvironmentVariable(varName, varValue);
         }
 
         [Given(@"I have a cutomerise pattern mapping ""(.*)"" to ""(.*)""")]
