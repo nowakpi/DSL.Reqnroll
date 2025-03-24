@@ -14,7 +14,7 @@ namespace DSL.ReqnrollPlugin
             return key == null ? key : Environment.GetEnvironmentVariable(key);
         }
 
-        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
+        public override string TransformText(in string inputString, in ScenarioContext scenarioContext)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
 

@@ -5,6 +5,8 @@
 /packages
 /.vs/
 /DSL.ReqnrollPlugin.Examples/obj/
-/DSL.ReqnrollPlugin/obj/
 /DSL.ReqnrollPlugin.Examples/bin/
+/DSL.ReqnrollPlugin.UnitTests/obj/
+/DSL.ReqnrollPlugin.UnitTests/bin/
+/DSL.ReqnrollPlugin/obj/
 /DSL.ReqnrollPlugin/bin/
