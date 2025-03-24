@@ -10,7 +10,7 @@ namespace DSL.ReqnrollPlugin
     {
         protected readonly List<Func<string, string>> _bespokeTransformers = new List<Func<string, string>>();
         
-        public abstract string TransformText(in string inputString, in ScenarioContext scenarioContext);
+        protected abstract string TransformText(in string inputString, in ScenarioContext scenarioContext);
         
         public IParameterTransformer AddBespokeTransformer(in Func<string, string> transformer)
         {

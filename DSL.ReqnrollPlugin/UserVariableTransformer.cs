@@ -9,7 +9,12 @@ namespace DSL.ReqnrollPlugin
 {
     public class UserVariableTransformer : VariablesParameterTransformer, IParameterTransformer
     {
-        public override string TransformText(in string inputString, in ScenarioContext scenarioContext)
+        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
+        {
+            return TransformText(inputString, scenarioContext);
+        }
+
+        public virtual string TransformText(in string inputString, in Dictionary<string, object> scenarioContext)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
 
@@ -17,7 +22,7 @@ namespace DSL.ReqnrollPlugin
             return match == null ? inputString : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
         }
 
-        public virtual string TransformPattern(in string pattern, in ScenarioContext scenarioContext)
+        public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
         {
             // supports [[key=value]] assignment
             var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");

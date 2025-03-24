@@ -14,14 +14,19 @@ namespace DSL.ReqnrollPlugin
             return key == null ? key : Environment.GetEnvironmentVariable(key);
         }
 
-        public override string TransformText(in string inputString, in ScenarioContext scenarioContext)
+        public virtual string TransformText(in string inputString)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
 
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.EnvironmentMatchConfig);
             var envVariableValue = GetEnvironmentVariable(match?.MatchedPattern);
 
-            return (match == null || envVariableValue == null) ? inputString : TransformText(match.ReplaceMatched(envVariableValue), scenarioContext);
+            return (match == null || envVariableValue == null) ? inputString : TransformText(match.ReplaceMatched(envVariableValue));
+        }
+
+        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
+        {
+            return TransformText(inputString);
         }
     }
 }
