@@ -2,11 +2,11 @@
 
 namespace DSL.ReqnrollPlugin
 {
-    internal class PatternMatch
+    public class PatternMatch
     {
-        string Prefix { get; set; }
+        public string Prefix { get; set; }
         public string MatchedPattern { get; set; }
-        string Postfix { get; set; }
+        public string Postfix { get; set; }
 
         public static PatternMatch Parse(in string stringToMatch, in PatternMatchConfig config)
         {

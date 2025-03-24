@@ -7,16 +7,22 @@ using Reqnroll;
 
 namespace DSL.ReqnrollPlugin
 {
-    public class CustomVariablesParameterTransformer : VariablesParameterTransformerBase, IParameterTransformer
+    public class UserVariableTransformer : VariablesParameterTransformer, IParameterTransformer
     {
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
         {
+            return TransformText(inputString, scenarioContext);
+        }
+
+        public virtual string TransformText(in string inputString, in Dictionary<string, object> scenarioContext)
+        {
             if (string.IsNullOrEmpty(inputString)) return inputString;
+
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.CustomVariablesMatchConfig);
             return match == null ? inputString : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
         }
 
-        protected virtual string TransformPattern(in string pattern, in ScenarioContext scenarioContext)
+        public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
         {
             // supports [[key=value]] assignment
             var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");
@@ -30,10 +36,7 @@ namespace DSL.ReqnrollPlugin
 
                 // apply RegEx
                 var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
-                if (regExM.Success)
-                {
-                    cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
-                }
+                if (regExM.Success) cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
 
                 var cxtKey = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);
                 scenarioContext[cxtKey] = cxtValue;

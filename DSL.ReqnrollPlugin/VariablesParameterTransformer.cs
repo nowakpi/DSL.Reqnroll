@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DSL.ReqnrollPlugin
 {
-    public abstract class VariablesParameterTransformerBase : IParameterTransformer
+    public abstract class VariablesParameterTransformer : IParameterTransformer
     {
         protected readonly List<Func<string, string>> _bespokeTransformers = new List<Func<string, string>>();
         

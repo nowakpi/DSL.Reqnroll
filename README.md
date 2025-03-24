@@ -1,6 +1,6 @@
 # DSL.Reqnroll
 
-DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in variables, regular expressions and bespoke transformations.
+DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, regular expressions and bespoke transformations.
 
 It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll.
 
@@ -9,17 +9,24 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 
 ### Syntax
 ```
-  [[ ]]                //double bracket in any text will trigger pattern matching 
+  (( ))                //double parentheses in any text will trigger matching with environment variables of the machine executing the test
+  ((PATH))             //will get a value of PATH environmental variable
+
+  [[ ]]                //double bracket in any text will trigger pattern matching for custom variables 
   [[varName=value]]    //will create a variable named "varName" with value "value" 
-  [[varName]]         //will get value of "varName", throw an error if "varName" is not defined
+  [[varName]]          //will get value of "varName", throw an error if "varName" is not defined
   [[varName=RegEx(patternText)]]  //RegEx() is a keyword that value is generated from patternText
 ``` 
 **How it works**:
-   It actually creates key/value pairs in current ScenarioContext.
-   So be careful not to conflict with your own context variables. 
+   It actually creates key/value pairs in current ScenarioContext. So be careful not to conflict with your own context variables. 
 
 ## Examples: 
- 
+
+  - Read environment variables of the machine executing the test
+```
+	When executed on Windows machine
+	Then verify string "{ OS: '((OS))', TMP: 'C:\Users\((USERNAME))\AppData\Local\Temp' }" equals "{ OS: 'Windows_NT', TMP: '((TMP))' }"
+```	
  - Create dynamic test data and refer it in another step
 ```
 	When enter [[var=50]]         //assign 50 to a variable named "var"

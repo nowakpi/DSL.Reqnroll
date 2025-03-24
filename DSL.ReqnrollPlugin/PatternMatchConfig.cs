@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSL.ReqnrollPlugin
 {
-    internal class PatternMatchConfig
+    public class PatternMatchConfig
     {
         public string PrefixLong { get; set; }
         public char PrefixShort { get; set; }
