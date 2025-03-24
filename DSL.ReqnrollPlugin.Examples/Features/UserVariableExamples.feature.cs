@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace DSL.Examples.Features
+namespace DSL.ReqnrollPlugin.Examples.Features
 {
     using Reqnroll;
     using System;
@@ -19,14 +19,14 @@ namespace DSL.Examples.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [Xunit.TraitAttribute("Category", "UT")]
+    [Xunit.TraitAttribute("Category", "Integration")]
     public partial class ExamplesOfVariablesUseFeature : object, Xunit.IClassFixture<ExamplesOfVariablesUseFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "UT"};
+                "Integration"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Examples of variables use", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         

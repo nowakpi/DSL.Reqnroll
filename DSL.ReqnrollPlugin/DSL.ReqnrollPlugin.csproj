@@ -5,14 +5,15 @@
 		<AssemblyName>DSL.ReqnrollPlugin</AssemblyName>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>DSL.Reqnroll</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.1.0</Version>
 		<Product>DSL Reqnroll Plugin</Product>
 		<Authors>Piotr Nowak</Authors>
 		<Company></Company>
 		<Description>
-			DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in variables, regular expressions and bespoke transformations. It's a re-write of SpecFlow.DSL library, written originally by Wenyuan(Ryan) Song and Liam Flanagan, to align it with Reqnroll.
+			DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, regular expressions and bespoke transformations. It's a re-write of SpecFlow.DSL library, written originally by Wenyuan(Ryan) Song and Liam Flanagan, to align it with Reqnroll with some enhncements on top of it.
 
 			Capabilities:
+			-&gt; Retrieve value of environment variables
 			-&gt; Create dynamic test data and refer it in another step
 			-&gt; Create dynamic test data using regular expression
 			-&gt; Simple calculations via bespoke transformations
@@ -21,7 +22,9 @@
 		<PackageProjectUrl>https://github.com/nowakpi/DSL.Reqnroll</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/nowakpi/DSL.Reqnroll</RepositoryUrl>
 		<PackageTags>Reqnroll DSL variables context</PackageTags>
-		<PackageReleaseNotes>v1.0.0: Introducing DSL.Reqnroll plugin</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			v1.1.0: Adding support for environment variables
+			v1.0.0: Introducing DSL.Reqnroll plugin</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<RepositoryType>git</RepositoryType>
@@ -33,8 +36,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\LICENSE.txt" Pack="true" PackagePath="\"/>
-		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+		<None Include="..\LICENSE.txt" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

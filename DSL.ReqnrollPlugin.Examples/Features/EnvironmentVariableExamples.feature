@@ -1,4 +1,4 @@
-﻿@UT
+﻿@Integration
 Feature: Examples of environment variables use
 
 Scenario: Custom env variable

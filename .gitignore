@@ -4,12 +4,7 @@
 
 /packages
 /.vs/
-/Reqnroll.DSL.Examples/bin/
-/Reqnroll.DSL.Examples/obj/
-/Reqnroll.DSL.Examples/TestResults/
-/Reqnroll.DSL.ReqnrollPlugin/bin/
-/Reqnroll.DSL.ReqnrollPlugin/obj/
-/DSL.Examples/obj/
+/DSL.ReqnrollPlugin.Examples/obj/
 /DSL.ReqnrollPlugin/obj/
-/DSL.Examples/bin/
+/DSL.ReqnrollPlugin.Examples/bin/
 /DSL.ReqnrollPlugin/bin/

@@ -1,4 +1,4 @@
-﻿@UT
+﻿@Integration
 Feature: Examples of variables use
 
 Scenario: number test
