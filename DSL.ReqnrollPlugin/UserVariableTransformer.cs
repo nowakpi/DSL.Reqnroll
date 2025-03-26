@@ -9,10 +9,7 @@ namespace DSL.ReqnrollPlugin
 {
     public class UserVariableTransformer : VariablesParameterTransformer, IParameterTransformer
     {
-        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
-        {
-            return TransformText(inputString, scenarioContext);
-        }
+        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString, scenarioContext);
 
         public virtual string TransformText(in string inputString, in Dictionary<string, object> scenarioContext)
         {

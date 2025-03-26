@@ -9,10 +9,9 @@ namespace DSL.ReqnrollPlugin
 {
     public class EnvironmentVariableTransformer : VariablesParameterTransformer, IEnvironmentVariableTransformer
     {
-        public virtual string GetEnvironmentVariable(string key)
-        {
-            return key == null ? key : Environment.GetEnvironmentVariable(key);
-        }
+        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
+        
+        public virtual string GetEnvironmentVariable(string key) => key == null ? key : Environment.GetEnvironmentVariable(key);
 
         public virtual string TransformText(in string inputString)
         {
@@ -22,11 +21,6 @@ namespace DSL.ReqnrollPlugin
             var envVariableValue = GetEnvironmentVariable(match?.MatchedPattern);
 
             return (match == null || envVariableValue == null) ? inputString : TransformText(match.ReplaceMatched(envVariableValue));
-        }
-
-        protected override string TransformText(in string inputString, in ScenarioContext scenarioContext)
-        {
-            return TransformText(inputString);
         }
     }
 }

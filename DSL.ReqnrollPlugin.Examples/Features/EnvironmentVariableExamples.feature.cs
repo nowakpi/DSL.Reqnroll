@@ -145,8 +145,8 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.WhenAsync("executed on Windows machine", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
- await testRunner.ThenAsync("verify string \"{ OS: \'((OS))\', TMP: \'C:\\Users\\((USERNAME))\\AppData\\Local\\Temp\' }\"" +
-                        " equals \"{ OS: \'Windows_NT\', TMP: \'((TMP))\' }\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("verify string \"{ OS: \'((OS))\', TMP: \'((USERPROFILE))\\AppData\\Local\\Temp\' }\" equal" +
+                        "s \"{ OS: \'Windows_NT\', TMP: \'((TMP))\' }\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

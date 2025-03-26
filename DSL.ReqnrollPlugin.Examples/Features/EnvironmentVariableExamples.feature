@@ -7,4 +7,4 @@ Scenario: Custom env variable
 
 Scenario: Windows env variable
 	When executed on Windows machine
-	Then verify string "{ OS: '((OS))', TMP: 'C:\Users\((USERNAME))\AppData\Local\Temp' }" equals "{ OS: 'Windows_NT', TMP: '((TMP))' }"
+	Then verify string "{ OS: '((OS))', TMP: '((USERPROFILE))\AppData\Local\Temp' }" equals "{ OS: 'Windows_NT', TMP: '((TMP))' }"

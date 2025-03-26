@@ -8,6 +8,8 @@ namespace DSL.ReqnrollPlugin
         public string MatchedPattern { get; set; }
         public string Postfix { get; set; }
 
+        public string ReplaceMatched(in string replace) => Prefix + replace + Postfix;
+
         public static PatternMatch Parse(in string stringToMatch, in PatternMatchConfig config)
         {
             if (config == null || stringToMatch.IndexOf(config.PrefixLong) < 0 || stringToMatch.IndexOf(config.SuffixLong) < 0) return null;
@@ -46,11 +48,6 @@ namespace DSL.ReqnrollPlugin
                 MatchedPattern = stringToMatch.Substring(startPattern, endPattern - startPattern + 1),
                 Postfix = stringToMatch.Substring(endPattern + 3),
             };
-        }
-
-        public string ReplaceMatched(in string replace)
-        {
-            return Prefix + replace + Postfix;
         }
     }
 }
