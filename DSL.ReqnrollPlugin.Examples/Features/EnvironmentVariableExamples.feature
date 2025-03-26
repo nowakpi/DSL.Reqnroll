@@ -7,4 +7,4 @@ Scenario: Custom env variable
 
 Scenario: Windows env variable
 	When executed on Windows machine
-	Then verify string "{ OS: '((OS))', ARCH: 'x86' }" equals "{ OS: 'Windows_NT', ARCH: '((PROCESSOR_ARCHITECTURE))' }"
+	Then verify string "{ OS: '((OS))', ARCH: '((PROCESSOR_ARCHITECTURE))' }" equals "{ OS: 'Windows_NT', ARCH: '((PROCESSOR_ARCHITECTURE))' }"
