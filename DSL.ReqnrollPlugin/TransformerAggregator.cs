@@ -6,12 +6,12 @@ namespace DSL.ReqnrollPlugin
 {
     public class TransformerAggregator : ITransformerAggregator
     {
-        protected readonly List<ITransformer> _transformers = new List<ITransformer>();
+        protected readonly LinkedList<ITransformer> _transformers = new LinkedList<ITransformer>();
 
         public TransformerAggregator(IParameterTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer)
         {
-            _transformers.Add(customVariableTransformer);
-            _transformers.Add(environmentVariableTransformer);
+            _transformers.AddLast(environmentVariableTransformer);
+            _transformers.AddLast(customVariableTransformer);
         }
 
         public string Transform(in string pattern, in ScenarioContext context)
