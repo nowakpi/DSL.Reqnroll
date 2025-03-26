@@ -20,7 +20,9 @@ namespace DSL.ReqnrollPlugin
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.EnvironmentMatchConfig);
             var envVariableValue = GetEnvironmentVariable(match?.MatchedPattern);
 
-            return (match == null || envVariableValue == null) ? inputString : TransformText(match.ReplaceMatched(envVariableValue));
+            return (match == null || envVariableValue == null) 
+                ? inputString 
+                : TransformText(match.ReplaceMatched(envVariableValue));
         }
     }
 }

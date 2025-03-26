@@ -39,8 +39,7 @@ namespace DSL.ReqnrollPlugin
 
             foreach (var row in table.Rows)
             {
-                foreach (var k in row.Keys)
-                    row[k] = _transformer?.Transform(row[k], ScenarioContext);
+                foreach (var k in row.Keys) row[k] = _transformer?.Transform(row[k], ScenarioContext);
             }
 
             return table;

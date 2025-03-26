@@ -20,27 +20,33 @@ namespace DSL.ReqnrollPlugin
             return this;
         }
 
+        protected string ApplyBespokeTransformers(string pattern)
+        {
+            // apply user filter
+            foreach (var transformer in _bespokeTransformers) pattern = transformer.Invoke(pattern);
+            return pattern;
+        }
+
         public virtual string Transform(in string inputString, in Reqnroll.ScenarioContext scenarioContext)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
-            // deal with multiple line text
-            StringBuilder result = new StringBuilder();
-            using (StringReader reader = new StringReader(inputString))
-            {
-                string line = string.Empty;
-                do
-                {
-                    line = reader.ReadLine();
-                    if (line != null)
-                    {
-                        if (result.Length == 0) result.Append(TransformText(line, scenarioContext));
-                        else result.Append(Environment.NewLine + TransformText(line, scenarioContext));
-                    }
 
-                } while (line != null);
-            }
+            StringBuilder result = new StringBuilder();
+            ProcessMultipleLines(inputString, scenarioContext, result);
 
             return result.ToString();
+        }
+
+        private void ProcessMultipleLines(string inputString, ScenarioContext scenarioContext, StringBuilder stringBuilder)
+        {
+            using (StringReader reader = new StringReader(inputString))
+            {
+                string line; while ((line = reader.ReadLine()) != null)
+                {
+                    string preffix = stringBuilder.Length == 0 ? string.Empty : Environment.NewLine;
+                    stringBuilder.Append(preffix + TransformText(line, scenarioContext));
+                }
+            }
         }
     }
 }

@@ -16,41 +16,44 @@ namespace DSL.ReqnrollPlugin
             if (string.IsNullOrEmpty(inputString)) return inputString;
 
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.CustomVariablesMatchConfig);
-            return match == null ? inputString : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
+            return match == null 
+                ? inputString 
+                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
         }
 
         public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
         {
             // supports [[key=value]] assignment
             var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");
-            if (isAssignment.Success)
+            return isAssignment.Success
+                ? TransformAssignment(scenarioContext, isAssignment)
+                : TryGetValueFromScenarioContext(pattern, scenarioContext);
+        }
+
+        private string TransformAssignment(Dictionary<string, object> scenarioContext, Match isAssignment)
+        {
+            // bottom up travese
+            var cxtValue = TransformText(isAssignment.Groups[2]?.Value?.Trim(), scenarioContext);
+            cxtValue = ApplyBespokeTransformers(cxtValue);
+            // apply RegEx
+            var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
+            if (regExM.Success) cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
+
+            var cxtKey = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);
+            scenarioContext[cxtKey] = cxtValue;
+
+            return cxtValue;
+        }
+
+        private static string TryGetValueFromScenarioContext(string pattern, Dictionary<string, object> scenarioContext)
+        {
+            try
             {
-                // bottom up travese
-                var cxtValue = TransformText(isAssignment.Groups[2]?.Value?.Trim(), scenarioContext);
-
-                // apply user filter
-                foreach (var transformer in _bespokeTransformers) cxtValue = transformer.Invoke(cxtValue);
-
-                // apply RegEx
-                var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
-                if (regExM.Success) cxtValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
-
-                var cxtKey = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);
-                scenarioContext[cxtKey] = cxtValue;
-
-                return cxtValue;
+                return scenarioContext[pattern] as string;
             }
-            else
+            catch (KeyNotFoundException)
             {
-                // read value from scenario context
-                try
-                {
-                    return scenarioContext[pattern] as string;
-                }
-                catch (KeyNotFoundException)
-                {
-                    throw new KeyNotFoundException("[DSL.ReqnrollPlugin] Can't find key:" + pattern + " in scenario context");
-                }
+                throw new KeyNotFoundException("[DSL.ReqnrollPlugin] Can't find key:" + pattern + " in scenario context");
             }
         }
     }
