@@ -7,4 +7,4 @@ Scenario: Custom env variable
 
 Scenario: Windows env variable
 	When executed on Windows machine
-	Then verify string "{ OS: '((OS))', TMP: '((USERPROFILE))\AppData\Local\Temp' }" equals "{ OS: 'Windows_NT', TMP: '((TEMP))' }"
+	Then verify string "{ OS: '((OS))', ARCH: 'x86' }" equals "{ OS: 'Windows_NT', ARCH: '((PROCESSOR_ARCHITECTURE))' }"
