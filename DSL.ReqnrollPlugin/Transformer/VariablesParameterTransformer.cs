@@ -22,7 +22,6 @@ namespace DSL.ReqnrollPlugin
 
         protected string ApplyBespokeTransformers(string pattern)
         {
-            // apply user filter
             foreach (var transformer in _bespokeTransformers) pattern = transformer.Invoke(pattern);
             return pattern;
         }

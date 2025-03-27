@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace DSL.ReqnrollPlugin
+﻿namespace DSL.ReqnrollPlugin
 {
     public class PatternMatch
     {

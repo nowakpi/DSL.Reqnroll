@@ -7,18 +7,20 @@ namespace DSL.ReqnrollPlugin
     public sealed partial class ReqnrollPluginTestRunner : ITestRunner
     {
         private readonly ITestRunner _testRunner;
-        private readonly ITransformerAggregator _transformer;
+        private readonly ITransformerAggregator _transformerAggregator;
         private string _testWorkerId;
 
         public FeatureContext FeatureContext => _testRunner.FeatureContext;
         public ScenarioContext ScenarioContext => _testRunner.ScenarioContext;
         public ITestThreadContext TestThreadContext => _testRunner.TestThreadContext;
+        
         string ITestRunner.TestWorkerId { get => _testWorkerId; }
+        string Transform(in string obj) => _transformerAggregator?.Transform(obj, ScenarioContext);
 
-        public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, ITransformerAggregator tranformer)
+        public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, ITransformerAggregator transformerAggregator)
         {
             _testRunner = new TestRunner(executionEngine);
-            _transformer = tranformer;
+            _transformerAggregator = transformerAggregator;
         }
 
         [Obsolete]
@@ -28,19 +30,11 @@ namespace DSL.ReqnrollPlugin
             _testRunner?.InitializeTestRunner(testWorkerId);
         }
 
-        private string Transform(in string obj)
-        {
-            return _transformer?.Transform(obj, ScenarioContext);
-        }
-
         private Table Transform(in Table table)
         {
-            if (table == null) return table;
-
-            foreach (var row in table.Rows)
-            {
-                foreach (var k in row.Keys) row[k] = _transformer?.Transform(row[k], ScenarioContext);
-            }
+            if (table != null)
+                foreach (var row in table.Rows)
+                    foreach (var k in row.Keys) row[k] = _transformerAggregator?.Transform(row[k], ScenarioContext);
 
             return table;
         }

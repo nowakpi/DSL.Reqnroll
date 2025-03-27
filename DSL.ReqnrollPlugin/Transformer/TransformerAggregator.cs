@@ -1,6 +1,5 @@
 ﻿using Reqnroll;
 using System.Collections.Generic;
-using System;
 
 namespace DSL.ReqnrollPlugin
 {
@@ -14,12 +13,10 @@ namespace DSL.ReqnrollPlugin
             _transformers.AddLast(customVariableTransformer);
         }
 
-        public string Transform(in string pattern, in ScenarioContext context)
+        public string Transform(string inputString, ScenarioContext context)
         {
-            string result = pattern;
-            
-            foreach (var transformer in _transformers) result = transformer.Transform(result, context);
-            return result;
+            foreach (var transformer in _transformers) inputString = transformer.Transform(inputString, context);
+            return inputString;
         }
     }
 }
