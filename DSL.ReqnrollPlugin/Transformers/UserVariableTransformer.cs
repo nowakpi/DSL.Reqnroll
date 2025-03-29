@@ -20,7 +20,7 @@ namespace DSL.ReqnrollPlugin
 
         public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
         {   // supports [[key=value]] assignment
-            var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");
+            var isAssignment = RegexMatch.MatchAssignement(pattern);
             return isAssignment.Success
                 ? TransformAssignment(scenarioContext, isAssignment)
                 : TryGetValueFromScenarioContext(pattern, scenarioContext);
@@ -31,7 +31,7 @@ namespace DSL.ReqnrollPlugin
             var custVariableValue = TransformText(isAssignment.Groups[2]?.Value?.Trim(), scenarioContext);
             custVariableValue = ApplyBespokeTransformers(custVariableValue);
             // apply RegEx
-            var regExM = Regex.Match(custVariableValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
+            var regExM = RegexMatch.MatchRegex(custVariableValue);
             if (regExM.Success) custVariableValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
 
             var custVariableName = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);

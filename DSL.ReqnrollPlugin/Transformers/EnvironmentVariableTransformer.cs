@@ -1,13 +1,9 @@
 ﻿using Reqnroll;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DSL.ReqnrollPlugin
 {
-    public class EnvironmentVariableTransformer : VariablesParameterTransformer, IEnvironmentVariableTransformer
+    public class EnvironmentVariableTransformer : BaseParameterTransformer, IEnvironmentVariableTransformer
     {
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
         
