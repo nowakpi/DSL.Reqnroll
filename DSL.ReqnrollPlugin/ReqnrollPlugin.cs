@@ -1,3 +1,4 @@
+using DSL.ReqnrollPlugin.Transformer;
 using Reqnroll;
 using Reqnroll.Plugins;
 using Reqnroll.UnitTestProvider;
@@ -14,6 +15,7 @@ namespace DSL.ReqnrollPlugin
             {
                 args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IParameterTransformer>();
                 args.ObjectContainer.RegisterTypeAs<EnvironmentVariableTransformer, IEnvironmentVariableTransformer>();
+                args.ObjectContainer.RegisterTypeAs<FunctionParameterTransformer, IFunctionTransformer>();
                 args.ObjectContainer.RegisterTypeAs<TransformerAggregator, ITransformerAggregator>();
                 args.ObjectContainer.RegisterTypeAs<ReqnrollPluginTestRunner, ITestRunner>();
             };

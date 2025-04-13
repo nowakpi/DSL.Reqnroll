@@ -7,9 +7,10 @@ namespace DSL.ReqnrollPlugin
     {
         protected readonly LinkedList<ITransformer> _transformers = new LinkedList<ITransformer>();
 
-        public TransformerAggregator(IParameterTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer)
+        public TransformerAggregator(IParameterTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
         {
             _transformers.AddLast(environmentVariableTransformer);
+            _transformers.AddLast(functionTransformer);
             _transformers.AddLast(customVariableTransformer);
         }
 
