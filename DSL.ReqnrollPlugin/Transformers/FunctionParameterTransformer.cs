@@ -8,8 +8,8 @@ namespace DSL.ReqnrollPlugin.Transformer
 {
     public class FunctionParameterTransformer : BaseParameterTransformer, IFunctionTransformer
     {
-        private const string DEFAULT_TODAY_FUNC_OUTPUT_FORMAT = "yyyy-MM-dd";
-        private string[] _supportedFunctions = { "TODAY" };
+        private const string DEFAULT_TODAY_FUNC_OUTPUT_FORMAT = @"yyyy-MM-dd";
+        private readonly string[] _supportedFunctions = { "TODAY" };
 
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 
@@ -37,46 +37,59 @@ namespace DSL.ReqnrollPlugin.Transformer
 
         private string TransformTodayFunction(MatchCollection dateFunctionMatch)
         {
-            var currentDateUTC = DateTimeOffset.UtcNow;
+            DateTimeOffset currDateTimeOffsetUTC = DateTimeOffset.UtcNow;
+            char[] charsToRemove = {'#'};
 
-            var userOffset = string.Empty;
+            currDateTimeOffsetUTC = ExtractTimeType(dateFunctionMatch, currDateTimeOffsetUTC, charsToRemove);
+            currDateTimeOffsetUTC = ExtractUserOffset(dateFunctionMatch, currDateTimeOffsetUTC);
 
-            //todo: carefully intrepret match collection and groups within each item to identify if the function is TODAY and has required elements (offset, formatting)
-            //todo2: add U or L prefix before TODAY to handle UTC or local times
-            dateFunctionMatch[0]?.Groups[1]?.Value?.Trim();
-
-
-            if (!string.IsNullOrWhiteSpace(userOffset)) currentDateUTC = GetCurrentDateWithUserOffset(userOffset);
-
-            var userFormatting = dateFunctionMatch[2]?.Groups[0]?.Value?.Trim();
-
-            return currentDateUTC.ToString(string.IsNullOrWhiteSpace(userFormatting) ? DEFAULT_TODAY_FUNC_OUTPUT_FORMAT : userFormatting);
+            return TransformToFinalFormat(dateFunctionMatch, currDateTimeOffsetUTC, charsToRemove);
         }
 
-        private DateTimeOffset GetCurrentDateWithUserOffset(in string userOffset)
+        private static string TransformToFinalFormat(MatchCollection dateFunctionMatch, DateTimeOffset currDateTimeOffsetUTC, char[] charsToRemove)
+        {
+            var userFormatting = dateFunctionMatch[0]?.Groups[3]?.Value?.Trim().TrimStart(charsToRemove).Trim();
+            return currDateTimeOffsetUTC.ToString(string.IsNullOrWhiteSpace(userFormatting) ? DEFAULT_TODAY_FUNC_OUTPUT_FORMAT : userFormatting);
+        }
+
+        private DateTimeOffset ExtractUserOffset(MatchCollection dateFunctionMatch, DateTimeOffset currDateTimeOffsetUTC)
+        {
+            var userOffset = dateFunctionMatch[0]?.Groups[2]?.Value?.Trim();
+            if (!string.IsNullOrWhiteSpace(userOffset)) currDateTimeOffsetUTC = GetCurrentDateWithUserOffset(userOffset, currDateTimeOffsetUTC);
+            return currDateTimeOffsetUTC;
+        }
+
+        protected static DateTimeOffset ExtractTimeType(MatchCollection dateFunctionMatch, DateTimeOffset currDateTimeOffsetUTC, char[] charsToRemove)
+        {
+            var timeType = dateFunctionMatch[0]?.Groups[1]?.Value?.Trim().TrimEnd(charsToRemove).Trim();
+
+            if (!string.IsNullOrWhiteSpace(timeType))
+                if (timeType == "L") currDateTimeOffsetUTC = DateTimeOffset.UtcNow.ToLocalTime();
+                else if (timeType == "U") currDateTimeOffsetUTC = DateTimeOffset.UtcNow;
+            
+            return currDateTimeOffsetUTC;
+        }
+
+        private static DateTimeOffset GetCurrentDateWithUserOffset(in string userOffset, DateTimeOffset currDateTimeOffsetUTC)
         {
             var offsetValue = userOffset.Substring(0, userOffset.Length - 1);
             var offsetType = userOffset.Substring(userOffset.Length - 1, 1);
-            var currentDateUTC = DateTimeOffset.UtcNow;
 
             if (int.TryParse(offsetValue.Trim(), out var offset))
-            {
                 switch (offsetType)
                 {
                     case "y":
-                        currentDateUTC = currentDateUTC.AddYears(offset);
+                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddYears(offset);
                         break;
                     case "M":
-                        currentDateUTC = currentDateUTC.AddMonths(offset);
+                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddMonths(offset);
                         break;
                     case "d":
-                        currentDateUTC = currentDateUTC.AddDays(offset);
+                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddDays(offset);
                         break;
                 }
-                
-            }
 
-            return currentDateUTC;
+            return currDateTimeOffsetUTC;
         }
     }
 }
