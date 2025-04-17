@@ -51,9 +51,9 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 ```
      for example, you want to map Today to YYYY:MM:dd, add the following code in one of your Reqnroll steps 
 	 or put it in BeforeScenario step.
-      ((IParameterTransform)
+      ((IParameterTransformer)
                 (_scenarioContext.GetBindingInstance(typeof(IParameterTransform))))
-            .addTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd") : s); 
+            .AddBespokeTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd") : s); 
 	
      Now in Reqnroll feature files, you can write:	
 	 When entered "[[timeVar=Today]]"		  //timeVar will be assigned to yyyy/MM/dd, e.g 2017/12/04
