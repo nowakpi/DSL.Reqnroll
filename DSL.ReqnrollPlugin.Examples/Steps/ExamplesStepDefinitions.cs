@@ -97,6 +97,27 @@ namespace Examples.Steps
             p1.Should().Be(p0);
         }
 
+        [Then(@"verify string ""(.*)"" equals to the same local time 6 months ago in format of dd-MM-yyyy HH:mm:ss")]
+        public void ThenVerifyStringEqualsSpecificDateTimeInLocalTimeMinus6M(string p0)
+        {
+            DateTimeOffset today = DateTimeOffset.UtcNow.ToLocalTime();
+            today = today.AddMonths(-6);
+            var formattedDateTime = today.ToString("dd-MM-yyy HH:mm:ss");
+
+            formattedDateTime.Should().Be(p0);
+        }
+
+        [Then(@"verify string ""(.*)"" equals to today in local time 3 hours ago in format of dd-MM-yyyy HH:mm:ss")]
+        public void ThenVerifyStringEqualsSpecificDateTimeInLocalTimeMinus3H(string p0)
+        {
+            DateTimeOffset today = DateTimeOffset.UtcNow.ToLocalTime();
+            today = today.AddHours(-3);
+            var formattedDateTime = today.ToString("dd-MM-yyy HH:mm:ss");
+
+            formattedDateTime.Should().Be(p0);
+        }
+
+
         [When(@"entered long string")]
         public void GivenEnteredLongString(string multilineText)
         {
