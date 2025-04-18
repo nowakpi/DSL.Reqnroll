@@ -1,6 +1,6 @@
 # DSL.Reqnroll
 
-DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, regular expressions and bespoke transformations.
+DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, built-in functions, regular expressions and bespoke transformations.
 
 It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll.
 

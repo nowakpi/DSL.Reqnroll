@@ -19,7 +19,7 @@ namespace DSL.ReqnrollPlugin
         }
 
         public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
-        {   // supports [[key=value]] assignment
+        {
             var isAssignment = RegexMatch.MatchAssignement(pattern);
             return isAssignment.Success
                 ? TransformAssignment(scenarioContext, isAssignment)
@@ -27,24 +27,14 @@ namespace DSL.ReqnrollPlugin
         }
 
         private string TransformAssignment(Dictionary<string, object> scenarioContext, Match isAssignment)
-        {   // bottom up travese
-            var custVariableValue = TransformText(isAssignment.Groups[2]?.Value?.Trim(), scenarioContext);
-            custVariableValue = ApplyBespokeTransformers(custVariableValue);
-            // apply RegEx
-            var regExM = RegexMatch.MatchRegex(custVariableValue);
-            if (regExM.Success) custVariableValue = new Fare.Xeger(regExM.Groups[1]?.Value).Generate();
-
-            var custVariableName = TransformText(isAssignment.Groups[1]?.Value?.Trim(), scenarioContext);
-            scenarioContext[custVariableName] = custVariableValue;
-
-            return custVariableValue;
-        }
-
-        private static string TryGetValueFromScenarioContext(string pattern, Dictionary<string, object> scenarioContext)
         {
-            return scenarioContext.TryGetValue(pattern, out var value)
-                ? value as string
-                : throw new KeyNotFoundException("[DSL.ReqnrollPlugin] Can't find key:" + pattern + " in scenario context");
+            var custVariableValue = TransformText(UserVariableMatchInterpreter.GetCustomVariableValue(isAssignment), scenarioContext);
+            var valueTransformedByBespokeTransformers = ApplyBespokeTransformers(custVariableValue);
+            var valueWithAppliedCustomRegex = UserVariableMatchInterpreter.ApplyCustomRegex(valueTransformedByBespokeTransformers);
+            var custVariableName = TransformText(UserVariableMatchInterpreter.GetCustomVariableName(isAssignment), scenarioContext);
+
+            scenarioContext[custVariableName] = valueWithAppliedCustomRegex;
+            return valueWithAppliedCustomRegex;
         }
     }
 }
