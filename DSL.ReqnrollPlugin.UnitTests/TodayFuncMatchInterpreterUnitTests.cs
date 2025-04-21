@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Moq;
 using Xunit;
 
 namespace DSL.ReqnrollPlugin.UnitTests

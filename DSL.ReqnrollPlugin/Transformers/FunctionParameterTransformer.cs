@@ -1,9 +1,8 @@
 ﻿using Reqnroll;
 using System;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace DSL.ReqnrollPlugin.Transformer
+namespace DSL.ReqnrollPlugin
 {
     public class FunctionParameterTransformer : BaseParameterTransformer, IFunctionTransformer
     {

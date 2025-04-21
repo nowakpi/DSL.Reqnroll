@@ -1,6 +1,5 @@
 ﻿namespace DSL.ReqnrollPlugin.UnitTests
 {
-
     public class EnvironmentVariableTransformerUnitTests
     {
         private readonly EnvironmentVariableTransformer _transformer;
