@@ -2,8 +2,8 @@ using DSL.ReqnrollPlugin;
 using Reqnroll;
 using FluentAssertions;
 using System.Text.RegularExpressions;
-using System;
 using System.Runtime.InteropServices;
+using Xunit;
 
 namespace Examples.Steps
 {
@@ -95,6 +95,25 @@ namespace Examples.Steps
         public void ThenVerifyStringEquals(string p0, string p1)
         {
             p1.Should().Be(p0);
+        }
+
+        [Then(@"verify string ""(.*)"" is not empty and represents an integer bettwen 1 and 2147483647")]
+        public void ThenVerifyStringRepresentsIntegerBetween_1_And_2147483647(string p0)
+        {
+            if (int.TryParse(p0, out int result)) 
+            {  
+                if (!(result >= 1 && result <= Int32.MaxValue)) Assert.Fail("Value returned by {{RANDOM}} is not between 1 and 2147483647");
+            } else Assert.Fail("Cannot parse value returned by {{RANDOM}} as an integer");
+        }
+
+        [Then(@"verify string ""(.*)"" is not empty and represents an integer bettwen 20 and 80")]
+        public void ThenVerifyStringRepresentsIntegerBetween_20_And_80(string p0)
+        {
+            if (int.TryParse(p0, out int result))
+            {
+                if (!(result >= 20 && result <= 80)) Assert.Fail("Value returned by {{RANDOM}} is not between 20 and 80");
+            }
+            else Assert.Fail("Cannot parse value returned by {{RANDOM}} as an integer");
         }
 
         [Then(@"verify string ""(.*)"" equals to the same local time 6 months ago in format of dd-MM-yyyy HH:mm:ss")]

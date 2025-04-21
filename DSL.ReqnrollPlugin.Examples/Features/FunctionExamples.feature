@@ -12,3 +12,11 @@ Scenario: I use TODAY to define formatted date/time with hour offset in local ti
 Scenario: I use TODAY function without parameters as a variable
 	When entered string "[[TODAY={{TODAY}}]]"
 	Then verify string "[[TODAY]]" equals "{{TODAY}}"
+
+Scenario: I use RANDOM function without parameters as a variable
+	When entered string "[[RVAL={{RANDOM}}]]"
+	Then verify string "[[RVAL]]" is not empty and represents an integer bettwen 1 and 2147483647
+
+Scenario: I use RANDOM function with parameters as a variavble
+	When entered string "[[RVAL={{RANDOM:20:80}}]]"
+	Then verify string "[[RVAL]]" is not empty and represents an integer bettwen 20 and 80

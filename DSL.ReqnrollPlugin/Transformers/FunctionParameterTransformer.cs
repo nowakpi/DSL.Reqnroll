@@ -1,12 +1,16 @@
-﻿using Reqnroll;
+﻿using DSL.ReqnrollPlugin.Matches;
+using Reqnroll;
 using System;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace DSL.ReqnrollPlugin
 {
     public class FunctionParameterTransformer : BaseParameterTransformer, IFunctionTransformer
     {
-        private readonly string[] _supportedFunctions = { TodayFuncMatchInterpreter.FuncName };
+        private static readonly Random _randomGenerator = new Random();
+
+        private readonly string[] _supportedFunctions = { TodayFuncMatchInterpreter.FuncName, RandomFuncMatchInterpreter.FuncName };
 
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 
@@ -22,10 +26,13 @@ namespace DSL.ReqnrollPlugin
                 : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern)));
         }
 
-        public virtual string TransformPattern(in string pattern)
+        public virtual string TransformPattern(in string inputString)
         {
-            var isDateFunction = RegexMatch.MatchDateFunction(pattern);
-            return isDateFunction[TodayFuncMatchInterpreter.MatchIndex].Success ? TransformTodayFunction(isDateFunction) : pattern;
+            var isDateFunction = RegexMatch.MatchTodateFunction(inputString);
+            if (isDateFunction.Count > 0 && isDateFunction[TodayFuncMatchInterpreter.MatchIndex].Success) return TransformTodayFunction(isDateFunction);
+            
+            var isRandomFunction = RegexMatch.MatchRandomFunction(inputString);
+            return (isRandomFunction.Count > 0 && isRandomFunction[RandomFuncMatchInterpreter.MatchIndex].Success) ? TransformRandomFunction(isRandomFunction) : inputString;
         }
 
         private string TransformTodayFunction(MatchCollection todayFuncMatches)
@@ -34,6 +41,12 @@ namespace DSL.ReqnrollPlugin
             var dateTimeWithUserOffset = TodayFuncMatchInterpreter.ExtractUserOffset(todayFuncMatches, currDateTimeOffset);
 
             return TodayFuncMatchInterpreter.TransformToUserFormat(todayFuncMatches, dateTimeWithUserOffset);
+        }
+
+        private string TransformRandomFunction(MatchCollection randomFuncMatches)
+        {
+            var (rangeFrom, rangeTo) = RandomFuncMatchInterpreter.GetRandomRange(randomFuncMatches);
+            return _randomGenerator.Next(rangeFrom, rangeTo).ToString();
         }
     }
 }

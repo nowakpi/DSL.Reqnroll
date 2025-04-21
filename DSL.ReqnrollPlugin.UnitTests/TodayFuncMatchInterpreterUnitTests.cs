@@ -88,7 +88,7 @@ namespace DSL.ReqnrollPlugin.UnitTests
             stringToBeMatched = !string.IsNullOrWhiteSpace(offset) ? stringToBeMatched + offset : stringToBeMatched;
             stringToBeMatched = !string.IsNullOrWhiteSpace(format) ? stringToBeMatched + TodayFuncMatchInterpreter.OptionSeparator + format : stringToBeMatched;
             
-            return RegexMatch.MatchDateFunction(stringToBeMatched);
+            return RegexMatch.MatchTodateFunction(stringToBeMatched);
         }
     }
 }
