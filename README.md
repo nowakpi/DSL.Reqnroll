@@ -2,7 +2,7 @@
 
 DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, built-in functions, regular expressions and bespoke transformations.
 
-It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll.
+It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll with multiple enhancements on the top.
 
 ### Background
 In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0001432&id=post) announced the end-of-life of the SpecFlow open source project. According to the announcement, SpecFlow reached its end-of-life on December 31, 2024. As of 1st January 2025, the SpecFlow GitHub projects have been deleted and the support section of the specflow.org website is disabled.
@@ -12,13 +12,37 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
   (( ))                //double parentheses in any text will trigger matching with environment variables of the machine executing the test
   ((PATH))             //will get a value of PATH environmental variable
 
-  [[ ]]                //double bracket in any text will trigger pattern matching for custom variables 
+  [[ ]]                //double square bracket in any text will trigger pattern matching for custom variables 
   [[varName=value]]    //will create a variable named "varName" with value "value" 
   [[varName]]          //will get value of "varName", throw an error if "varName" is not defined
   [[varName=RegEx(patternText)]]  //RegEx() is a keyword that value is generated from patternText
+
+  {{ }}                //double curly brackets in any text will trigger pattern matching for built-in function and execute it
+  {{TODAY}}            //will execute TODAY function and return current UTC timestamp in a default formatting as dd-MM-yyyy
+  {{L#TODAY#dd-MM-yyyy}}  //will execute TODAY function and return curretn timestamp in local time of the machine executing the test formatting the output as dd-MM-yyyy
+  {{U#TODAY-7d#dd-MM-yyyy HH:mm:ss}}  //will execute TODAY function and return UTC timestamp from 7 days ago formatting the output as dd-MM-yyyy HH:mm:ss
+
+  {{RANDOM}}           //will execute RANDOM function and return pseudo random number from a default range between 1 and Int32.MaxValue (2147483647)
+  {{RANODM:20:80}}     //will execute RANDOM function and return pseudo random number from range between 20 and 80
 ``` 
-**How it works**:
+**How custom variables work**:
    It actually creates key/value pairs in current ScenarioContext. So be careful not to conflict with your own context variables. 
+
+**How TODAY works**:
+   You can add or subtract from current timestamp the following periods:
+   d - day
+   M - month
+   y - year
+   H - hour
+   m - minute
+   s - second
+   
+   You cannot combine the periods.
+   
+   Allowed: {{TODAY+1d}}  {{TODAY-10m}}
+   Not allowed:  {{TODAY+1d-6h}}
+
+   To define output format you can use the following characters:  dMyHhmsftz.-\\/: and space
 
 ## Examples: 
 
