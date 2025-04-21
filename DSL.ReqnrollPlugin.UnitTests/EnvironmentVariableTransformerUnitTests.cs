@@ -51,7 +51,7 @@
         [Fact]
         public void TransformText_NonExistentEnvironmentVariable_ReturnsInput()
         {
-            var input = "Hello, %NON_EXISTENT_VAR%!";
+            var input = "Hello, ((ON_EXISTENT_VAR))!";
             Assert.Equal(input, _transformer.TransformText(input));
         }
 
