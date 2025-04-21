@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DSL.ReqnrollPlugin
+﻿namespace DSL.ReqnrollPlugin
 {
     public interface IFunctionTransformer : ITransformer
     {

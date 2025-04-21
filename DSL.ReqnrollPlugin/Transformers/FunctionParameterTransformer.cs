@@ -2,7 +2,6 @@
 using Reqnroll;
 using System;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace DSL.ReqnrollPlugin
 {

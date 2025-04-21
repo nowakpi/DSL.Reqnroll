@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace DSL.ReqnrollPlugin.UnitTests
+﻿namespace DSL.ReqnrollPlugin.UnitTests
 {
     public class FunctionParameterTransformerUnitTests
     {

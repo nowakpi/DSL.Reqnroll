@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace DSL.ReqnrollPlugin.UnitTests
+﻿namespace DSL.ReqnrollPlugin.UnitTests
 {
     public class UserVariableTransformerTests
     {
