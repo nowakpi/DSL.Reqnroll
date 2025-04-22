@@ -34,7 +34,7 @@ namespace DSL.ReqnrollPlugin
             return (isRandomFunction.Count > 0 && isRandomFunction[RandomFuncMatchInterpreter.MatchIndex].Success) ? TransformRandomFunction(isRandomFunction) : inputString;
         }
 
-        private string TransformTodayFunction(MatchCollection todayFuncMatches)
+        private static string TransformTodayFunction(MatchCollection todayFuncMatches)
         {
             var currDateTimeOffset = TodayFuncMatchInterpreter.ExtractTimeType(todayFuncMatches, DateTimeOffset.UtcNow);
             var dateTimeWithUserOffset = TodayFuncMatchInterpreter.ExtractUserOffset(todayFuncMatches, currDateTimeOffset);
@@ -42,7 +42,7 @@ namespace DSL.ReqnrollPlugin
             return TodayFuncMatchInterpreter.TransformToUserFormat(todayFuncMatches, dateTimeWithUserOffset);
         }
 
-        private string TransformRandomFunction(MatchCollection randomFuncMatches)
+        private static string TransformRandomFunction(MatchCollection randomFuncMatches)
         {
             var (rangeFrom, rangeTo) = RandomFuncMatchInterpreter.GetRandomRange(randomFuncMatches);
             return _randomGenerator.Next(rangeFrom, rangeTo).ToString();

@@ -14,22 +14,22 @@
         [Fact]
         public void TransformText_NullOrEmptyInput_ReturnsInput()
         {
-            Assert.Null(_transformer.TransformText(null, _scenarioContext));
-            Assert.Equal(string.Empty, _transformer.TransformText(string.Empty, _scenarioContext));
+            Assert.Null(_transformer.TransformTextLocal(null, _scenarioContext));
+            Assert.Equal(string.Empty, _transformer.TransformTextLocal(string.Empty, _scenarioContext));
         }
 
         [Fact]
         public void TransformText_NoMatchingPattern_ReturnsInput()
         {
             var input = "Hello, World!";
-            Assert.Equal(input, _transformer.TransformText(input, _scenarioContext));
+            Assert.Equal(input, _transformer.TransformTextLocal(input, _scenarioContext));
         }
 
         [Fact]
         public void TransformText_SimpleAssignment_AddsToContext()
         {
             var input = "[[key=value]]";
-            var result = _transformer.TransformText(input, _scenarioContext);
+            var result = _transformer.TransformTextLocal(input, _scenarioContext);
 
             Assert.Equal("value", result);
             Assert.Equal("value", _scenarioContext["key"]);
@@ -40,7 +40,7 @@
         {
             _scenarioContext["innerKey"] = "innerValue";
             var input = "[[outerKey=[[innerKey]]]]";
-            var result = _transformer.TransformText(input, _scenarioContext);
+            var result = _transformer.TransformTextLocal(input, _scenarioContext);
 
             Assert.Equal("innerValue", result);
             Assert.Equal("innerValue", _scenarioContext["outerKey"]);
@@ -50,7 +50,7 @@
         public void TransformText_RegExPattern_GeneratesMatchingString()
         {
             var input = "[[key=RegEx([a-z]{5})]]";
-            var result = _transformer.TransformText(input, _scenarioContext);
+            var result = _transformer.TransformTextLocal(input, _scenarioContext);
 
             Assert.Matches(@"^[a-z]{5}$", result);
             Assert.Matches(@"^[a-z]{5}$", _scenarioContext["key"] as string);
@@ -77,7 +77,7 @@
             _scenarioContext["key1"] = "value1";
             _scenarioContext["key2"] = "value2";
             var input = "Hello [[key1]], how are you [[key2]]?";
-            var result = _transformer.TransformText(input, _scenarioContext);
+            var result = _transformer.TransformTextLocal(input, _scenarioContext);
 
             Assert.Equal("Hello value1, how are you value2?", result);
         }

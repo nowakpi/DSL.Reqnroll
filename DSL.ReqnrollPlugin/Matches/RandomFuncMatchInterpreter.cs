@@ -23,7 +23,7 @@ namespace DSL.ReqnrollPlugin.Matches
             var userRange = randomFunc[MatchIndex]?.Groups[RangeGroupIndex]?.Value?.Trim();
             if (string.IsNullOrWhiteSpace(userRange)) return (DEFAULT_RANGE_FROM, DEFAULT_RANGE_TO);
 
-            var rangeValues = userRange?.Split(_splitChars);
+            var rangeValues = userRange.Split(_splitChars);
             if (rangeValues.Length != CORRECT_ARRAY_LENGTH) return (DEFAULT_RANGE_FROM, DEFAULT_RANGE_TO);
 
             if (int.TryParse(rangeValues[RANGE_FROM_INDEX], out var rangeFrom) && int.TryParse(rangeValues[RANGE_TO_INDEX], out var rangeTo)) return (rangeFrom, rangeTo);
