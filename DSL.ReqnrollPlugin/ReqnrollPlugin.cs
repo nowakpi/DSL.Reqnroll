@@ -14,6 +14,7 @@ namespace DSL.ReqnrollPlugin
             {
                 args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IParameterTransformer>();
                 args.ObjectContainer.RegisterTypeAs<EnvironmentVariableTransformer, IEnvironmentVariableTransformer>();
+                args.ObjectContainer.RegisterTypeAs<FunctionParameterTransformer, IFunctionTransformer>();
                 args.ObjectContainer.RegisterTypeAs<TransformerAggregator, ITransformerAggregator>();
                 args.ObjectContainer.RegisterTypeAs<ReqnrollPluginTestRunner, ITestRunner>();
             };

@@ -4,6 +4,6 @@ namespace DSL.ReqnrollPlugin
 {
     public interface ITransformerAggregator
     {
-        string Transform(string pattern, ScenarioContext context);
+        string Transform(string inputString, ScenarioContext context);
     }
 }

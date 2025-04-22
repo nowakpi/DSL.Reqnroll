@@ -1,32 +1,15 @@
 ﻿using Reqnroll;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace DSL.ReqnrollPlugin
 {
-    public abstract class VariablesParameterTransformer : IParameterTransformer
+    public abstract class BaseParameterTransformer : ITransformer
     {
-        protected readonly List<Func<string, string>> _bespokeTransformers = new List<Func<string, string>>();
-        
         protected abstract string TransformText(in string inputString, in ScenarioContext scenarioContext);
 
-        public void ClearBespokeTransformers() => _bespokeTransformers.Clear();
-
-        public IParameterTransformer AddBespokeTransformer(in Func<string, string> transformer)
-        {
-            _bespokeTransformers.Add(transformer);
-            return this;
-        }
-
-        protected string ApplyBespokeTransformers(string pattern)
-        {
-            foreach (var transformer in _bespokeTransformers) pattern = transformer.Invoke(pattern);
-            return pattern;
-        }
-
-        public virtual string Transform(in string inputString, in Reqnroll.ScenarioContext scenarioContext)
+        public virtual string Transform(in string inputString, in ScenarioContext scenarioContext)
         {
             if (string.IsNullOrEmpty(inputString)) return inputString;
 
