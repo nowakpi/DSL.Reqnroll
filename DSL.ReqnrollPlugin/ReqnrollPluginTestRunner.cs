@@ -15,7 +15,6 @@ namespace DSL.ReqnrollPlugin
         public ITestThreadContext TestThreadContext => _testRunner.TestThreadContext;
         
         string ITestRunner.TestWorkerId { get => _testWorkerId; }
-        string Transform(in string obj) => _transformerAggregator?.Transform(obj, ScenarioContext);
 
         public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, ITransformerAggregator transformerAggregator)
         {
@@ -23,12 +22,14 @@ namespace DSL.ReqnrollPlugin
             _transformerAggregator = transformerAggregator;
         }
 
-        [Obsolete]
+        [Obsolete("When building Reqnroll plugins one need to supply this method which is itself marked as obsolete in ITestRunner interface.")]
         public void InitializeTestRunner(string testWorkerId)
         {
             _testWorkerId = testWorkerId;
             _testRunner?.InitializeTestRunner(testWorkerId);
         }
+
+        private string Transform(in string obj) => _transformerAggregator?.Transform(obj, ScenarioContext);
 
         private Table Transform(in Table table)
         {
