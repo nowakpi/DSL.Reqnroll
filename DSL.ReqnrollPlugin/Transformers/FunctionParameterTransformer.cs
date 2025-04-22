@@ -7,8 +7,6 @@ namespace DSL.ReqnrollPlugin
 {
     public class FunctionParameterTransformer : BaseParameterTransformer, IFunctionTransformer
     {
-        private static readonly Random _randomGenerator = new Random();
-
         private readonly string[] _supportedFunctions = { TodayFuncMatchInterpreter.FuncName, RandomFuncMatchInterpreter.FuncName };
 
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
@@ -45,7 +43,7 @@ namespace DSL.ReqnrollPlugin
         private static string TransformRandomFunction(MatchCollection randomFuncMatches)
         {
             var (rangeFrom, rangeTo) = RandomFuncMatchInterpreter.GetRandomRange(randomFuncMatches);
-            return _randomGenerator.Next(rangeFrom, rangeTo).ToString();
+            return SecureRandomHelper.GetSecureRandomInt(rangeFrom, rangeTo).ToString();
         }
     }
 }
