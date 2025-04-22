@@ -11,3 +11,5 @@
 /DSL.ReqnrollPlugin/obj/
 /DSL.ReqnrollPlugin/bin/
 /DSL.ReqnrollPlugin.Examples/Features/FunctionExamples.feature.cs
+/DSL.ReqnrollPlugin.Examples/Features/UserVariableExamples.feature.cs
+/DSL.ReqnrollPlugin.Examples/Features/EnvironmentVariableExamples.feature.cs
