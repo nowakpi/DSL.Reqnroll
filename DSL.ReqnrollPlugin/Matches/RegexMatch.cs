@@ -7,10 +7,10 @@ namespace DSL.ReqnrollPlugin.Matches
     {
         private static readonly TimeSpan DEFAULT_REGEX_PARSE_TIMEOUT = TimeSpan.FromSeconds(1);
         
-        public const string ASSIGNEMENT_PATTERN = @"(.*)=(.*)";
-        public const string TODAY_FUNC_PATTERN = @"(?:([LU]#))?TODAY(?:([+-]\d+[yMdHms]))?(?:(#[dMyHhmsftz.\s\-\\\/\:]*))?";
-        public const string RANDOM_FUNC_PATTERN = @"(RANDOM)(?:(:\d+:\d+))?";
-        public const string REGEX_PATTERN = @"RegEx\((.*)\)";
+        private const string ASSIGNEMENT_PATTERN = @"(.*)=(.*)";
+        private const string TODAY_FUNC_PATTERN = @"(?:([LU]#))?TODAY(?:([+-]\d+[yMdHms]))?(?:(#[dMyHhmsftz.\s\-\\\/\:]*))?";
+        private const string RANDOM_FUNC_PATTERN = @"(RANDOM)(?:(:\d+:\d+))?";
+        private const string REGEX_PATTERN = @"RegEx\((.*)\)";
 
         public static Match MatchAssignement(in string inputString) => Regex.Match(inputString, ASSIGNEMENT_PATTERN, RegexOptions.None, DEFAULT_REGEX_PARSE_TIMEOUT);
         public static Match MatchRegex(in string inputString) => Regex.Match(inputString, REGEX_PATTERN, RegexOptions.IgnoreCase, DEFAULT_REGEX_PARSE_TIMEOUT);
