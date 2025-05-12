@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
     public abstract class BaseParameterTransformer : ITransformer
     {

@@ -1,4 +1,5 @@
-﻿using Reqnroll;
+﻿using DSL.ReqnrollPlugin.Transformers;
+using Reqnroll;
 using System.Threading.Tasks;
 
 namespace DSL.ReqnrollPlugin
@@ -67,7 +68,7 @@ namespace DSL.ReqnrollPlugin
 
         public async Task OnScenarioStartAsync()
         {
-            var paramTransformer = ScenarioContext?.GetBindingInstance(typeof(IParameterTransformer)) as IParameterTransformer;
+            var paramTransformer = ScenarioContext?.GetBindingInstance(typeof(IUserVariableTransformer)) as IUserVariableTransformer;
             paramTransformer?.ClearBespokeTransformers();
             await _testRunner?.OnScenarioStartAsync();
         }

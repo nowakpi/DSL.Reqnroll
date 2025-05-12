@@ -1,6 +1,6 @@
 ﻿using Reqnroll;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
     public interface ITransformerAggregator
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Helpers
 {
     public static class SecureRandomHelper
     {
@@ -11,8 +11,8 @@ namespace DSL.ReqnrollPlugin
         {
             if (minValue >= maxValue) throw new ArgumentOutOfRangeException(nameof(minValue), "minValue must be less than maxValue.");
 
-            long range = (long) maxValue - minValue;
-            if (range > Int32.MaxValue) throw new ArgumentException("Range must be ≤ Int32.MaxValue.");
+            long range = (long)maxValue - minValue;
+            if (range > int.MaxValue) throw new ArgumentException("Range must be ≤ Int32.MaxValue.");
 
             byte[] buffer = new byte[4];
             while (true)
@@ -23,7 +23,7 @@ namespace DSL.ReqnrollPlugin
 
                 if (randValue < uint.MaxValue + 1L - remainder)
                 {
-                    return (int)(minValue + (randValue % range));
+                    return (int)(minValue + randValue % range);
                 }
             }
         }

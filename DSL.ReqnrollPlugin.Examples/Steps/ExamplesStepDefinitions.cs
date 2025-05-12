@@ -4,6 +4,7 @@ using FluentAssertions;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Xunit;
+using DSL.ReqnrollPlugin.Transformers;
 
 namespace Examples.Steps
 {
@@ -49,16 +50,16 @@ namespace Examples.Steps
         [Given(@"I have a cutomerise pattern mapping ""(.*)"" to ""(.*)""")]
         public void GivenIHaveACutomerisePatternMappingTo(string keyword, string value)
         {
-            ((IParameterTransformer)
-                (_context.GetBindingInstance(typeof(IParameterTransformer))))
+            ((IUserVariableTransformer)
+                (_context.GetBindingInstance(typeof(IUserVariableTransformer))))
             .AddBespokeTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
         }
 
         [Given(@"I have a cutomerise pattern to support calculation")]
         public void GivenIHaveACutomerisePatternToSupportCalculation()
         {
-            ((IParameterTransformer)
-                (_context.GetBindingInstance(typeof(IParameterTransformer))))
+            ((IUserVariableTransformer)
+                (_context.GetBindingInstance(typeof(IUserVariableTransformer))))
             .AddBespokeTransformer(s =>
             {
                 var m = Regex.Match(s, "([0-9]+)(\\+|\\-|\\*|\\/)([0-9]+)");

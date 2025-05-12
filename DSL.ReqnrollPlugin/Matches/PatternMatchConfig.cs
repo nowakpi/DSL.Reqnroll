@@ -1,10 +1,10 @@
-﻿namespace DSL.ReqnrollPlugin
+﻿namespace DSL.ReqnrollPlugin.Matches
 {
     public class PatternMatchConfig
     {
         public string PrefixLong { get; set; }
         public char PrefixShort { get; set; }
-        public string SuffixLong {  get; set; }
+        public string SuffixLong { get; set; }
         public char SuffixShort { get; set; }
 
         public static PatternMatchConfig CustomVariablesMatchConfig => new PatternMatchConfig() { PrefixLong = "[[", PrefixShort = '[', SuffixLong = "]]", SuffixShort = ']' };

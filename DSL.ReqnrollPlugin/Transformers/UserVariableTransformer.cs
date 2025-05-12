@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using DSL.ReqnrollPlugin.Matches;
 using Reqnroll;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
-    public class UserVariableTransformer : VariablesParameterTransformer, IParameterTransformer
+    public class UserVariableTransformer : VariablesParameterTransformer, IUserVariableTransformer
     {
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformTextLocal(inputString, scenarioContext);
 

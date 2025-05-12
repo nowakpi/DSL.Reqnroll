@@ -1,3 +1,4 @@
+using DSL.ReqnrollPlugin.Transformers;
 using Reqnroll;
 using Reqnroll.Plugins;
 using Reqnroll.UnitTestProvider;
@@ -12,7 +13,7 @@ namespace DSL.ReqnrollPlugin
         {
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {
-                args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IParameterTransformer>();
+                args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IUserVariableTransformer>();
                 args.ObjectContainer.RegisterTypeAs<EnvironmentVariableTransformer, IEnvironmentVariableTransformer>();
                 args.ObjectContainer.RegisterTypeAs<FunctionParameterTransformer, IFunctionTransformer>();
                 args.ObjectContainer.RegisterTypeAs<TransformerAggregator, ITransformerAggregator>();

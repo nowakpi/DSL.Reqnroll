@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Matches
 {
     public static class RegexMatch
     {

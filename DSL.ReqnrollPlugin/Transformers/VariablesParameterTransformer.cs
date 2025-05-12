@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
-    public abstract class VariablesParameterTransformer : BaseParameterTransformer, IParameterTransformer
+    public abstract class VariablesParameterTransformer : BaseParameterTransformer, IUserVariableTransformer
     {
         protected readonly List<Func<string, string>> _bespokeTransformers = new List<Func<string, string>>();
-        
+
         public void ClearBespokeTransformers() => _bespokeTransformers.Clear();
 
-        public IParameterTransformer AddBespokeTransformer(in Func<string, string> transformer)
+        public IUserVariableTransformer AddBespokeTransformer(in Func<string, string> transformer)
         {
             _bespokeTransformers.Add(transformer);
             return this;

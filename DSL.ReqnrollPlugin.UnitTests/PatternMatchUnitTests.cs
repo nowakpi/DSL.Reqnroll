@@ -1,3 +1,5 @@
+using DSL.ReqnrollPlugin.Matches;
+
 namespace DSL.ReqnrollPlugin.UnitTests
 {
     public class PatternMatchUnitTests
