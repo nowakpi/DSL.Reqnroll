@@ -29,8 +29,20 @@ Scenario: customerise pattern
 	When entered string "[[var=MyKeyword]]"
 	Then verify string "[[var]]" equals "MyKeywordValue"
 
-Scenario: add calculation
-    Given I have a cutomerise pattern to support calculation
+Scenario: add calculation using new interface
+    Given I have a cutomerise pattern to support calculation using new interface
+	When entered int [[var=50]]
+	And entered int [[var2=[[var]]+1]]
+	Then verify int [[var2]] equals 51
+	When entered int [[var2=[[var]]*2]]
+	Then verify int [[var2]] equals 100
+	When entered int [[var2=[[var]]/2]]
+	Then verify int [[var2]] equals 25
+	When entered int [[var2=[[var]]-[[var]]]]
+	Then verify int [[var2]] equals 0
+
+	Scenario: add calculation using old interface
+    Given I have a cutomerise pattern to support calculation using old interface
 	When entered int [[var=50]]
 	And entered int [[var2=[[var]]+1]]
 	Then verify int [[var2]] equals 51
