@@ -77,11 +77,12 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 
  - Support bespoke transformation
 
+ - Please note that _IParameterTransformer_ interface becomes obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
 ```
-     for example, you want to map Today to YYYY:MM:dd, add the following code in one of your Reqnroll steps 
+     for example, you want to map Today to YYYY:MM:dd programmatically, add the following code in one of your Reqnroll steps 
 	 or put it in BeforeScenario step.
-      ((IParameterTransformer)
-                (_scenarioContext.GetBindingInstance(typeof(IParameterTransform))))
+      ((IUserVariableTransformer)
+                (_scenarioContext.GetBindingInstance(typeof(IUserVariableTransformer))))
             .AddBespokeTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd") : s); 
 	
      Now in Reqnroll feature files, you can write:	
