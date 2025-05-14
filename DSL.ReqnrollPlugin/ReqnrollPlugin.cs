@@ -1,8 +1,11 @@
+using DSL.ReqnrollPlugin.Transformers;
 using Reqnroll;
 using Reqnroll.Plugins;
 using Reqnroll.UnitTestProvider;
 
 [assembly: RuntimePlugin(typeof(DSL.ReqnrollPlugin.ReqnrollPlugin))]
+
+#pragma warning disable CS0618
 
 namespace DSL.ReqnrollPlugin
 {
@@ -12,6 +15,7 @@ namespace DSL.ReqnrollPlugin
         {
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {
+                args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IUserVariableTransformer>();
                 args.ObjectContainer.RegisterTypeAs<UserVariableTransformer, IParameterTransformer>();
                 args.ObjectContainer.RegisterTypeAs<EnvironmentVariableTransformer, IEnvironmentVariableTransformer>();
                 args.ObjectContainer.RegisterTypeAs<FunctionParameterTransformer, IFunctionTransformer>();
@@ -21,3 +25,5 @@ namespace DSL.ReqnrollPlugin
         }
     }
 }
+
+#pragma warning restore CS0618

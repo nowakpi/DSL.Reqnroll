@@ -1,9 +1,10 @@
-﻿using DSL.ReqnrollPlugin.Matches;
+﻿using DSL.ReqnrollPlugin.Helpers;
+using DSL.ReqnrollPlugin.Matches;
 using Reqnroll;
 using System;
 using System.Text.RegularExpressions;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
     public class FunctionParameterTransformer : BaseParameterTransformer, IFunctionTransformer
     {
@@ -27,9 +28,9 @@ namespace DSL.ReqnrollPlugin
         {
             var isDateFunction = RegexMatch.MatchTodateFunction(inputString);
             if (isDateFunction.Count > 0 && isDateFunction[TodayFuncMatchInterpreter.MatchIndex].Success) return TransformTodayFunction(isDateFunction);
-            
+
             var isRandomFunction = RegexMatch.MatchRandomFunction(inputString);
-            return (isRandomFunction.Count > 0 && isRandomFunction[RandomFuncMatchInterpreter.MatchIndex].Success) ? TransformRandomFunction(isRandomFunction) : inputString;
+            return isRandomFunction.Count > 0 && isRandomFunction[RandomFuncMatchInterpreter.MatchIndex].Success ? TransformRandomFunction(isRandomFunction) : inputString;
         }
 
         private static string TransformTodayFunction(MatchCollection todayFuncMatches)

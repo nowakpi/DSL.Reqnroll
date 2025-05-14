@@ -1,4 +1,4 @@
-﻿namespace DSL.ReqnrollPlugin
+﻿namespace DSL.ReqnrollPlugin.Matches
 {
     public class PatternMatch
     {

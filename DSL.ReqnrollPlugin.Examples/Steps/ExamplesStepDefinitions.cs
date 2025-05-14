@@ -4,6 +4,7 @@ using FluentAssertions;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Xunit;
+using DSL.ReqnrollPlugin.Transformers;
 
 namespace Examples.Steps
 {
@@ -49,13 +50,42 @@ namespace Examples.Steps
         [Given(@"I have a cutomerise pattern mapping ""(.*)"" to ""(.*)""")]
         public void GivenIHaveACutomerisePatternMappingTo(string keyword, string value)
         {
-            ((IParameterTransformer)
-                (_context.GetBindingInstance(typeof(IParameterTransformer))))
+            ((IUserVariableTransformer)
+                (_context.GetBindingInstance(typeof(IUserVariableTransformer))))
             .AddBespokeTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
         }
 
-        [Given(@"I have a cutomerise pattern to support calculation")]
-        public void GivenIHaveACutomerisePatternToSupportCalculation()
+        [Given(@"I have a cutomerise pattern to support calculation using new interface")]
+        public void GivenIHaveACutomerisePatternToSupportCalculationUsingNewInterface()
+        {
+            ((IUserVariableTransformer)
+                (_context.GetBindingInstance(typeof(IUserVariableTransformer))))
+            .AddBespokeTransformer(s =>
+            {
+                var m = Regex.Match(s, "([0-9]+)(\\+|\\-|\\*|\\/)([0-9]+)");
+                if (m.Success)
+                {
+                    switch (m.Groups[2].Value)
+                    {
+                        case "+":
+                            return (int.Parse(m.Groups[1].Value) + int.Parse(m.Groups[3].Value)).ToString();
+                        case "-":
+                            return (int.Parse(m.Groups[1].Value) - int.Parse(m.Groups[3].Value)).ToString();
+                        case "*":
+                            return (int.Parse(m.Groups[1].Value) * int.Parse(m.Groups[3].Value)).ToString();
+                        case "/":
+                            return (int.Parse(m.Groups[1].Value) / int.Parse(m.Groups[3].Value)).ToString();
+                        default:
+                            return s;
+                    }
+                }
+                return s;
+            }
+                );
+        }
+
+        [Given(@"I have a cutomerise pattern to support calculation using old interface")]
+        public void GivenIHaveACutomerisePatternToSupportCalculationUsingOldInterface()
         {
             ((IParameterTransformer)
                 (_context.GetBindingInstance(typeof(IParameterTransformer))))
@@ -82,8 +112,6 @@ namespace Examples.Steps
             }
                 );
         }
-
-
 
         [Given(@"I have a pattern to transform ""(.*)"" to ""(.*)""")]
         public void GivenIHaveAPatternToTransformTo(string p0, string p1)

@@ -1,13 +1,13 @@
 ﻿using Reqnroll;
 using System.Collections.Generic;
 
-namespace DSL.ReqnrollPlugin
+namespace DSL.ReqnrollPlugin.Transformers
 {
     public class TransformerAggregator : ITransformerAggregator
     {
         protected readonly LinkedList<ITransformer> _transformers = new LinkedList<ITransformer>();
 
-        public TransformerAggregator(IParameterTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
+        public TransformerAggregator(IUserVariableTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
         {
             _transformers.AddLast(environmentVariableTransformer);
             _transformers.AddLast(functionTransformer);

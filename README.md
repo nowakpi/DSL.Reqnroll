@@ -25,6 +25,11 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
   {{RANDOM}}           //will execute RANDOM function and return pseudo random number from a default range between 1 and Int32.MaxValue (2147483647)
   {{RANODM:20:80}}     //will execute RANDOM function and return pseudo random number from range between 20 and 80
 ``` 
+**Changes to interfaces and namespaces**:
+   In order to employ clean code principles and prepare the code base for further enhancements some interfaces and namespaces have changed in version 1.2.0. 
+   
+   Users of DSL.Reqnroll plugin are using _IParameterTransformer_ interface and _AddBespokeTransformer_ method to add custom transformers. _IParameterTransformer_ interface becomes obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
+
 **How custom variables work**:
    It actually creates key/value pairs in current ScenarioContext. So be careful not to conflict with your own context variables. 
 

@@ -11,10 +11,13 @@
 		<Company></Company>
 		<Description>
 			DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnroll steps by bringing in custom and environment variables, built-in functions, regular expressions and bespoke transformations. It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll with multiple enhancements on the top.
-			
+
+			Warning:
+			!! IParameterTransformer interface becomes obsolete in version 1.2.0 - it will be removed in the future. Please use IUserVariableTransformer interface from DSL.ReqnrollPlugin.Transformers namespace which also has _AddBespokeTransformer_ method to add bespoke transformations.
+
 			Capabilities:
-			-&gt; Built-in functions: TODAY, RANDOM
-			-&gt; Retrieve value of environment variables
+			-&gt; Built-in functions: TODAY, RANDOM (from v1.2.0)
+			-&gt; Retrieve value of environment variables (from v1.1.0)
 			-&gt; Create dynamic test data and refer it in another step
 			-&gt; Create dynamic test data using regular expression
 			-&gt; Simple calculations via bespoke transformations

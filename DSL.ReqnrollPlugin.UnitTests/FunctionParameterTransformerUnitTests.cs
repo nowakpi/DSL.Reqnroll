@@ -1,4 +1,6 @@
-﻿namespace DSL.ReqnrollPlugin.UnitTests
+﻿using DSL.ReqnrollPlugin.Transformers;
+
+namespace DSL.ReqnrollPlugin.UnitTests
 {
     public class FunctionParameterTransformerUnitTests
     {
