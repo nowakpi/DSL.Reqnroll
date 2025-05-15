@@ -83,7 +83,7 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 	 or put it in BeforeScenario step.
       ((IUserVariableTransformer)
                 (_scenarioContext.GetBindingInstance(typeof(IUserVariableTransformer))))
-            .AddBespokeTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd") : s); 
+            .AddBespokeTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture) : s); 
 	
      Now in Reqnroll feature files, you can write:	
 	 When entered "[[timeVar=Today]]"		  //timeVar will be assigned to yyyy/MM/dd, e.g 2017/12/04
