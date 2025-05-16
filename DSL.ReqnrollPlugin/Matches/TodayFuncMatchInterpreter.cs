@@ -10,12 +10,6 @@ namespace DSL.ReqnrollPlugin.Matches
         private const string DEFAULT_TODAY_FUNC_OUTPUT_FORMAT = @"yyyy-MM-dd";
         private const string LOCAL_TIME_TYPE = "L";
         private const string UTC_TIME_TYPE = "U";
-        private const string YEAR = "y";
-        private const string MONTH = "M";
-        private const string DAY = "d";
-        private const string HOUR = "H";
-        private const string MINUTE = "m";
-        private const string SECOND = "s";
 
         public static int MatchIndex           { get => 0; }
         public static int TimeTypeGroupIndex   { get => 1; }
@@ -28,9 +22,10 @@ namespace DSL.ReqnrollPlugin.Matches
         {
             var timeType = todayFuncMatch[MatchIndex]?.Groups[TimeTypeGroupIndex]?.Value?.Trim().TrimEnd(_charsToRemove).Trim();
 
-            if (!string.IsNullOrWhiteSpace(timeType))
-                if (timeType == LOCAL_TIME_TYPE) currDateTimeOffsetUTC = DateTimeOffset.UtcNow.ToLocalTime();
-                else if (timeType == UTC_TIME_TYPE) currDateTimeOffsetUTC = DateTimeOffset.UtcNow;
+            if (string.IsNullOrWhiteSpace(timeType)) return currDateTimeOffsetUTC;
+
+            if (timeType == LOCAL_TIME_TYPE) currDateTimeOffsetUTC = DateTimeOffset.UtcNow.ToLocalTime();
+            else if (timeType == UTC_TIME_TYPE) currDateTimeOffsetUTC = DateTimeOffset.UtcNow;
 
             return currDateTimeOffsetUTC;
         }
@@ -47,28 +42,7 @@ namespace DSL.ReqnrollPlugin.Matches
             var offsetValue = userOffset.Substring(0, userOffset.Length - 1);
             var offsetType = userOffset.Substring(userOffset.Length - 1, 1);
 
-            if (int.TryParse(offsetValue.Trim(), out var offset))
-                switch (offsetType)
-                {
-                    case YEAR:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddYears(offset);
-                        break;
-                    case MONTH:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddMonths(offset);
-                        break;
-                    case DAY:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddDays(offset);
-                        break;
-                    case HOUR:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddHours(offset);
-                        break;
-                    case MINUTE:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddMinutes(offset);
-                        break;
-                    case SECOND:
-                        currDateTimeOffsetUTC = currDateTimeOffsetUTC.AddSeconds(offset);
-                        break;
-                }
+            if (int.TryParse(offsetValue.Trim(), out var offset)) currDateTimeOffsetUTC = Helpers.DateTimeOffsetHelper.CalculateNewDateTimeOffset(currDateTimeOffsetUTC, offsetType, offset);
 
             return currDateTimeOffsetUTC;
         }
