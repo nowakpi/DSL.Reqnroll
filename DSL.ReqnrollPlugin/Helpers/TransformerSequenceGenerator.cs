@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using DSL.ReqnrollPlugin.Matches;
+using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace DSL.ReqnrollPlugin.Helpers
 {
     public static class TransformerSequenceGenerator
     {
-        private static readonly byte[] DEFAULT_TRANSFORMER_SEQUENCE = { 1, 2, 3};
+        private static readonly byte[] DEFAULT_TRANSFORMER_SEQUENCE = { PatternMatchConfig.EnvironmentMatchConfig.MatchOrder  , PatternMatchConfig.FunctionsMatchConfig.MatchOrder, PatternMatchConfig.CustomVariablesMatchConfig.MatchOrder };
 
         public static string GetStatementId(in string inputStatement)
         {

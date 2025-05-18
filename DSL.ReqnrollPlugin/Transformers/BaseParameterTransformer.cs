@@ -7,7 +7,7 @@ namespace DSL.ReqnrollPlugin.Transformers
 {
     public abstract class BaseParameterTransformer : ITransformer
     {
-        public abstract byte TransformerId { get; }
+        public abstract byte OrderId { get; }
 
         protected abstract string TransformText(in string inputString, in ScenarioContext scenarioContext);
 

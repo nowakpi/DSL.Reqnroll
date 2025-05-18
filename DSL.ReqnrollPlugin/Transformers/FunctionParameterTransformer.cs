@@ -10,7 +10,7 @@ namespace DSL.ReqnrollPlugin.Transformers
     {
         private readonly string[] _supportedFunctions = { TodayFuncMatchInterpreter.FuncName, RandomFuncMatchInterpreter.FuncName };
 
-        public override byte TransformerId { get => 2; }
+        public override byte OrderId { get => PatternMatchConfig.FunctionsMatchConfig.MatchOrder; }
 
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 

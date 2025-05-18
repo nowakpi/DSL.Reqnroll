@@ -7,7 +7,7 @@ namespace DSL.ReqnrollPlugin.Transformers
 {
     public class UserVariableTransformer : VariablesParameterTransformer, IUserVariableTransformer
     {
-        public override byte TransformerId { get => 3; }
+        public override byte OrderId { get => PatternMatchConfig.CustomVariablesMatchConfig.MatchOrder; }
 
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformTextLocal(inputString, scenarioContext);
 

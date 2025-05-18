@@ -12,9 +12,9 @@ namespace DSL.ReqnrollPlugin.Transformers
 
         public TransformerAggregator(IUserVariableTransformer userVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
         {
-            _transformers.Add(environmentVariableTransformer.TransformerId, environmentVariableTransformer);
-            _transformers.Add(functionTransformer.TransformerId, functionTransformer);
-            _transformers.Add(userVariableTransformer.TransformerId, userVariableTransformer);
+            _transformers.Add(environmentVariableTransformer.OrderId, environmentVariableTransformer);
+            _transformers.Add(functionTransformer.OrderId, functionTransformer);
+            _transformers.Add(userVariableTransformer.OrderId, userVariableTransformer);
         }
 
         public string Transform(string inputString, ScenarioContext context)
