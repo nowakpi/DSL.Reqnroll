@@ -1,22 +1,37 @@
-﻿using Reqnroll;
+﻿using DSL.ReqnrollPlugin.Helpers;
+using Reqnroll;
 using System.Collections.Generic;
 
 namespace DSL.ReqnrollPlugin.Transformers
 {
     public class TransformerAggregator : ITransformerAggregator
     {
-        protected readonly LinkedList<ITransformer> _transformers = new LinkedList<ITransformer>();
+        public ScenarioContext ScenarioContext { get; set; }
 
-        public TransformerAggregator(IUserVariableTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
+        protected readonly Dictionary<byte, ITransformer> _transformers = new Dictionary<byte, ITransformer>();
+
+        public TransformerAggregator(IUserVariableTransformer userVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
         {
-            _transformers.AddLast(environmentVariableTransformer);
-            _transformers.AddLast(functionTransformer);
-            _transformers.AddLast(customVariableTransformer);
+            _transformers.Add(environmentVariableTransformer.TransformerId, environmentVariableTransformer);
+            _transformers.Add(functionTransformer.TransformerId, functionTransformer);
+            _transformers.Add(userVariableTransformer.TransformerId, userVariableTransformer);
         }
 
         public string Transform(string inputString, ScenarioContext context)
         {
-            foreach (var transformer in _transformers) inputString = transformer.Transform(inputString, context);
+            if (string.IsNullOrEmpty(inputString)) { return null; }
+
+            string statementId = TransformerSequenceGenerator.GetStatementId(inputString);
+            byte[] transformerSequence = TransformerSequenceGenerator.GetTransformerSequence(inputString);
+
+            if (!string.IsNullOrWhiteSpace(statementId)) { context[statementId] = transformerSequence; }
+
+            foreach (var transformerId in transformerSequence)
+            {
+                var transformer = _transformers[transformerId];
+                inputString = transformer.Transform(inputString, context);
+            }
+
             return inputString;
         }
     }

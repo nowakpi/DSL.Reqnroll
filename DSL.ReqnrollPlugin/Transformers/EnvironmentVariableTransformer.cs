@@ -6,6 +6,8 @@ namespace DSL.ReqnrollPlugin.Transformers
 {
     public class EnvironmentVariableTransformer : BaseParameterTransformer, IEnvironmentVariableTransformer
     {
+        public override byte TransformerId { get => 1; }
+
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 
         public virtual string GetEnvironmentVariable(string key) => key == null ? key : Environment.GetEnvironmentVariable(key);

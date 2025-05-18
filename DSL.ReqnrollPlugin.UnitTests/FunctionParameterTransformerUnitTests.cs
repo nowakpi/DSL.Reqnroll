@@ -35,7 +35,7 @@ namespace DSL.ReqnrollPlugin.UnitTests
         public void TransformText_TodayFunction_WithTimeType_UTC()
         {
             var input = "Today is {{U#TODAY}}.";
-            var dateFormatted = DateTimeOffset.UtcNow.ToLocalTime().ToString("yyyy-MM-dd");
+            var dateFormatted = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd");
             var expected = $"Today is {dateFormatted}.";
 
             Assert.Equal(expected, _transformer.TransformText(input));
