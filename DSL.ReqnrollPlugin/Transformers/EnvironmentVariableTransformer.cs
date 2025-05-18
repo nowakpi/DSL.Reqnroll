@@ -21,7 +21,7 @@ namespace DSL.ReqnrollPlugin.Transformers
 
             return match == null || string.IsNullOrEmpty(envVariableValue)
                 ? inputString
-                : TransformText(match.ReplaceMatched(envVariableValue));
+                : match.ReplaceMatched(envVariableValue);
         }
     }
 }

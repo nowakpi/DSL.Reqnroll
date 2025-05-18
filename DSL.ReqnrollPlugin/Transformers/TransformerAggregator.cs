@@ -24,7 +24,7 @@ namespace DSL.ReqnrollPlugin.Transformers
             string statementId = TransformerSequenceGenerator.GetStatementId(inputString);
             byte[] transformerSequence = TransformerSequenceGenerator.GetTransformerSequence(inputString);
 
-            if (!string.IsNullOrWhiteSpace(statementId)) { context[statementId] = transformerSequence; }
+            if (!string.IsNullOrWhiteSpace(statementId) && context != null) { context[statementId] = transformerSequence; }
 
             foreach (var transformerId in transformerSequence)
             {

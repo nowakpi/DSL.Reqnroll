@@ -23,7 +23,7 @@ namespace DSL.ReqnrollPlugin.Transformers
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.FunctionsMatchConfig);
             return match == null
                 ? inputString
-                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern)));
+                : match.ReplaceMatched(TransformPattern(match.MatchedPattern));
         }
 
         public virtual string TransformPattern(in string inputString)
