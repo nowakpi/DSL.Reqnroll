@@ -18,7 +18,7 @@ namespace DSL.ReqnrollPlugin.Transformers
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.CustomVariablesMatchConfig);
             return match == null
                 ? inputString
-                : match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext));
+                : TransformTextLocal(match.ReplaceMatched(TransformPattern(match.MatchedPattern, scenarioContext)), scenarioContext);
         }
 
         public virtual string TransformPattern(in string pattern, in Dictionary<string, object> scenarioContext)
