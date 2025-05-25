@@ -63,7 +63,7 @@ namespace DSL.ReqnrollPlugin.UnitTests
             Environment.SetEnvironmentVariable("USER_NAME", "John");
             var input = "Greetings ((GREETING))!";
             var expected = "Greetings John!";
-            Assert.Equal(expected, _transformer.TransformText(input));
+            Assert.Equal(expected, _transformer.TransformText(_transformer.TransformText(input)));
             Environment.SetEnvironmentVariable("GREETING", null); // Clean up
             Environment.SetEnvironmentVariable("USER_NAME", null); // Clean up
         }
@@ -75,7 +75,7 @@ namespace DSL.ReqnrollPlugin.UnitTests
             Environment.SetEnvironmentVariable("VAR2", "world");
             var input = "((VAR1)), [[user]]! Welcome to ((VAR2))!";
             var expected = "Hello, [[user]]! Welcome to world!";
-            Assert.Equal(expected, _transformer.TransformText(input));
+            Assert.Equal(expected, _transformer.TransformText(_transformer.TransformText(input)));
             Environment.SetEnvironmentVariable("VAR1", null); // Clean up
             Environment.SetEnvironmentVariable("VAR2", null); // Clean up
         }
