@@ -27,7 +27,7 @@
 		<RepositoryUrl>https://github.com/nowakpi/DSL.Reqnroll</RepositoryUrl>
 		<PackageTags>Reqnroll DSL variables context</PackageTags>
 		<PackageReleaseNotes>
-			v1.2.1: Upgrading to Reqnroll 2.4.1
+			v1.2.1: Upgrading to Reqnroll 2.4.1 and xUnit 2.8.1
 			v1.2.0: Adding support for built-in functions: TODAY, RANDOM
 			v1.1.0: Adding support for environment variables
 			v1.0.0: Introducing DSL.Reqnroll plugin</PackageReleaseNotes>
