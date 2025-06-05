@@ -5,7 +5,7 @@
 		<AssemblyName>DSL.ReqnrollPlugin</AssemblyName>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>DSL.Reqnroll</PackageId>
-		<Version>1.2.0</Version>
+		<Version>1.2.1</Version>
 		<Product>DSL Reqnroll Plugin</Product>
 		<Authors>Piotr Nowak</Authors>
 		<Company></Company>
@@ -27,6 +27,7 @@
 		<RepositoryUrl>https://github.com/nowakpi/DSL.Reqnroll</RepositoryUrl>
 		<PackageTags>Reqnroll DSL variables context</PackageTags>
 		<PackageReleaseNotes>
+			v1.2.1: Upgrading to Reqnroll 2.4.1 and xUnit 2.8.1
 			v1.2.0: Adding support for built-in functions: TODAY, RANDOM
 			v1.1.0: Adding support for environment variables
 			v1.0.0: Introducing DSL.Reqnroll plugin</PackageReleaseNotes>
@@ -37,7 +38,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Fare" Version="2.2.1" />
-		<PackageReference Include="Reqnroll.CustomPlugin" Version="2.2.1" />
+		<PackageReference Include="Reqnroll.CustomPlugin" Version="2.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
