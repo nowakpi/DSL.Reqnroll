@@ -93,8 +93,8 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 
 ## Dependencies
 * .NetFramework 4.6.2+ or .NetCore 2.0+
-* Reqnroll v2.2.1 +
-* Fare 2.1.2 +
+* Reqnroll v2.4.1 +
+* Fare 2.2.1 +
 
 License: MIT (https://github.com/nowakpi/DSL.Reqnroll/blob/master/LICENSE)
 
