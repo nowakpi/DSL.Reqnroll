@@ -28,14 +28,14 @@ namespace DSL.ReqnrollPlugin.Matches
                 : prefixLong.Equals(EnvironmentMatchConfig.PrefixLong) ? EnvironmentMatchConfig.MatchOrder : byte.MinValue;
         }
 
-        public static bool DoesSuffixMatchPrefix(string lastOpenPattern, string buffer)
+        public static bool DoesSuffixMatchPrefix(string prefix, string suffix)
         {
-            return _prefixToSuffix[lastOpenPattern] == buffer;
+            return _prefixToSuffix[prefix] == suffix;
         }
 
-        internal static byte GetTransformerForPrefix(string lastOpenPattern)
+        internal static byte GetTransformerForPrefix(string prefix)
         {
-            return _prefixToMatchOrder[lastOpenPattern];
+            return _prefixToMatchOrder[prefix];
         }
     }
 }

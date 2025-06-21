@@ -76,32 +76,5 @@ namespace DSL.ReqnrollPlugin.Helpers
 
             return result;
         }
-         
-        public static byte[] GetTransformerSequence(in string inputStatement)
-        {
-            Stack<string> transformersRequested = new Stack<string>();
-            int positionInInputStatement = 0;
-
-            while (positionInInputStatement < inputStatement.Length)
-            {
-                var indicator = inputStatement.Substring(positionInInputStatement, inputStatement.Length - positionInInputStatement > 1 ? 2 : 1);
-                if (PatternMatchConfig.IsMatchPatternPrefix(indicator)) 
-                {
-                    transformersRequested.Push(indicator);
-                    positionInInputStatement += 2;
-                }
-                else positionInInputStatement += 1;
-            }
-
-            List<byte> matchOrders = new List<byte>();
-            while (transformersRequested.Count > 0)
-            {
-                var indicator = transformersRequested.Pop();
-                var matchOrder = PatternMatchConfig.GetMatchOrder(indicator);
-                if (matchOrder > byte.MinValue) matchOrders.Add(matchOrder);
-            }
-
-            return matchOrders.Count > 0 ? matchOrders.ToArray() : DEFAULT_TRANSFORMER_SEQUENCE;
-        }
     }
 }
