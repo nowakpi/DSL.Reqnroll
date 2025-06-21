@@ -10,8 +10,9 @@ namespace DSL.ReqnrollPlugin.Helpers
     public static class TransformerSequenceGenerator
     {
         private static readonly byte[] DEFAULT_TRANSFORMER_SEQUENCE = { PatternMatchConfig.EnvironmentMatchConfig.MatchOrder  , PatternMatchConfig.FunctionsMatchConfig.MatchOrder, PatternMatchConfig.CustomVariablesMatchConfig.MatchOrder };
+        private static readonly string KEY_SEPARATOR = "_";
 
-        public static string GetStatementId(in string inputStatement)
+        private static string GetStatementId(in string inputStatement)
         {
             byte[] statementBytes = Encoding.UTF8.GetBytes(inputStatement);
 
@@ -21,13 +22,26 @@ namespace DSL.ReqnrollPlugin.Helpers
             return BitConverter.ToString(hashValue).Replace("-", "");
         }
 
-        public static TransformableText? GetAnyTransformableText(in string inputStatement)
+        private static bool WasTextAlreadyTransformed(string statementId, TransformableText transformableText, Dictionary<string, object> scenarioContext)
+        {
+            string key = statementId + KEY_SEPARATOR + transformableText.StartIndex.ToString() + KEY_SEPARATOR + transformableText.EndIndex + KEY_SEPARATOR + transformableText.Text;
+            return scenarioContext.ContainsKey(key);
+        }
+
+        private static void RegisterTransformedText(string statementId, TransformableText transformableText, Dictionary<string, object> scenarioContext)
+        {
+            string key = statementId + KEY_SEPARATOR + transformableText.StartIndex.ToString() + KEY_SEPARATOR + transformableText.EndIndex + KEY_SEPARATOR + transformableText.Text;
+            scenarioContext.Add(key, true);
+        }
+
+        public static TransformableText? GetAnyTransformableText(in string inputStatement, Dictionary<string, object> scenarioContext)
         {
             if (inputStatement == null || string.IsNullOrWhiteSpace(inputStatement)) return null;
 
             TransformableText? result = null;
             string lastOpenPattern = null;
             int lastOpenPatternIndex = 0;
+            string statementId = GetStatementId(inputStatement);
 
             for (int index = 0; index < inputStatement.Length - 1; index++)
             {
@@ -42,14 +56,20 @@ namespace DSL.ReqnrollPlugin.Helpers
                 {
                     if (lastOpenPattern != null && PatternMatchConfig.DoesSuffixMatchPrefix(lastOpenPattern, buffer))
                     {
-                        result = new TransformableText
+                        TransformableText textCandidate = new TransformableText
                         {
                             StartIndex = lastOpenPatternIndex,
-                            EndIndex = index + 2,
+                            EndIndex = index + 1,
                             Text = inputStatement.Substring(lastOpenPatternIndex, 2 + index - lastOpenPatternIndex),
-                            Transformer = PatternMatchConfig.GetTransformerForPrefix(lastOpenPattern)
+                            TransformerId = PatternMatchConfig.GetTransformerForPrefix(lastOpenPattern)
                         };
-                        break;
+
+                        if (!WasTextAlreadyTransformed(statementId, textCandidate, scenarioContext)) 
+                        {
+                            result = textCandidate;
+                            RegisterTransformedText(statementId, textCandidate, scenarioContext);
+                            break;
+                        }
                     } 
                 }
             }

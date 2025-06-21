@@ -22,24 +22,17 @@ namespace DSL.ReqnrollPlugin.Transformers
         {
             if (string.IsNullOrEmpty(inputString)) { return null; }
 
-            string statementId = TransformerSequenceGenerator.GetStatementId(inputString);
-            StringBuilder transformerSequence = new StringBuilder();
-
             TransformableText? text;
-            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString)) != null) 
+            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString, context)) != null) 
             {
-                var transformerId = ((TransformableText) text).Transformer;
-                var transformer = _transformers[transformerId];
+                TransformableText transformableText = (TransformableText) text;
+                var transformer = _transformers[transformableText.TransformerId];
 
-                transformerSequence.Append(transformerId);
+                string newLeftSide = inputString.Substring(0, transformableText.StartIndex);
+                string newRightSide = inputString.Substring(transformableText.EndIndex + 1);
 
-                string newLeftSide = inputString.Substring(0, ((TransformableText)text).StartIndex);
-                string newRightSide = inputString.Substring(((TransformableText)text).EndIndex + 1);
-
-                inputString = newLeftSide + transformer.Transform(((TransformableText)text).Text, context) + newRightSide;
+                inputString = newLeftSide + transformer.Transform(transformableText.Text, context) + newRightSide;
             }
-
-            if (!string.IsNullOrWhiteSpace(statementId) && context != null) { context[statementId] = transformerSequence; }
 
             return inputString;
         }
