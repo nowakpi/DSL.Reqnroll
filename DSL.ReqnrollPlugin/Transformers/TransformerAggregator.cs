@@ -1,6 +1,7 @@
 ﻿using DSL.ReqnrollPlugin.Helpers;
 using Reqnroll;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DSL.ReqnrollPlugin.Transformers
 {
@@ -22,15 +23,23 @@ namespace DSL.ReqnrollPlugin.Transformers
             if (string.IsNullOrEmpty(inputString)) { return null; }
 
             string statementId = TransformerSequenceGenerator.GetStatementId(inputString);
-            byte[] transformerSequence = TransformerSequenceGenerator.GetTransformerSequence(inputString);
+            StringBuilder transformerSequence = new StringBuilder();
+
+            TransformableText? text;
+            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString)) != null) 
+            {
+                var transformerId = ((TransformableText) text).Transformer;
+                var transformer = _transformers[transformerId];
+
+                transformerSequence.Append(transformerId);
+
+                string newLeftSide = inputString.Substring(0, ((TransformableText)text).StartIndex);
+                string newRightSide = inputString.Substring(((TransformableText)text).EndIndex + 1);
+
+                inputString = newLeftSide + transformer.Transform(((TransformableText)text).Text, context) + newRightSide;
+            }
 
             if (!string.IsNullOrWhiteSpace(statementId) && context != null) { context[statementId] = transformerSequence; }
-
-            foreach (var transformerId in transformerSequence)
-            {
-                var transformer = _transformers[transformerId];
-                inputString = transformer.Transform(inputString, context);
-            }
 
             return inputString;
         }
