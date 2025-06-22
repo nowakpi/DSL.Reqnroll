@@ -2,12 +2,19 @@
 
 Feature: ComplexExamples
 
-#This feature shows how environment, user-defined and function transformers can work together.
-#As per current codebase you cannot have multiple user-variable definitions in one input string (you can refer to another one but not define second one):
-# - allowed:  [[BOP={{TODAY-[[RADIUS]]y#yyyy}}]], {{L#TODAY-[[RADIUS]]d#dd-MM-yyyy}}
-# - not allowed:  
+#This feature shows how environment, user-defined and function transformers can be mixed together.
+#As per latest implementation you CAN have multiple user-variable definitions in one input string and also:
 # - multiple functions and environment variables are allowed
 # - result of one function can be used in definition of other function
+
+
+Scenario: Multiple user variables defined as part of one string
+	 When entered string "[[VAR1={{L#TODAY-{{L#TODAY#dd}}d#dd-MM-yyyy}}]] and then [[VAR2={{TODAY#yyyy}}]] finally [[VAR3=[[VAR2]]Z]]"
+	 Then verify table with expected values of variables:
+	 | Variable | Value                                  |
+	 | VAR1     | {{L#TODAY-{{L#TODAY#dd}}d#dd-MM-yyyy}} |
+	 | VAR2     | {{TODAY#yyyy}}                         |
+	 | VAR3     | {{TODAY#yyyy}}Z                        |
 
 Scenario: Function execution can be embedded in another function
 	 When entered string "[[var={{L#TODAY-{{L#TODAY#dd}}d#dd-MM-yyyy}}]]"
