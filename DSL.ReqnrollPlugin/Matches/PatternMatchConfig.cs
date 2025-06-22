@@ -23,9 +23,21 @@ namespace DSL.ReqnrollPlugin.Matches
 
         public static byte GetMatchOrder(string prefixLong)
         {
-            return prefixLong.Equals(CustomVariablesMatchConfig.PrefixLong) ? CustomVariablesMatchConfig.MatchOrder
-                : prefixLong.Equals(FunctionsMatchConfig.PrefixLong) ? FunctionsMatchConfig.MatchOrder
-                : prefixLong.Equals(EnvironmentMatchConfig.PrefixLong) ? EnvironmentMatchConfig.MatchOrder : byte.MinValue;
+            if (prefixLong.Equals(CustomVariablesMatchConfig.PrefixLong))
+            {
+                return CustomVariablesMatchConfig.MatchOrder;
+            }
+            else
+            {
+                if (prefixLong.Equals(FunctionsMatchConfig.PrefixLong))
+                {
+                    return FunctionsMatchConfig.MatchOrder;
+                }
+                else
+                {
+                    return prefixLong.Equals(EnvironmentMatchConfig.PrefixLong) ? EnvironmentMatchConfig.MatchOrder : byte.MinValue;
+                }
+            }
         }
 
         public static bool DoesSuffixMatchPrefix(string prefix, string suffix)

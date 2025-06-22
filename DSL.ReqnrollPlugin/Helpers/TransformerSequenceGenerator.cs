@@ -52,25 +52,22 @@ namespace DSL.ReqnrollPlugin.Helpers
                     lastOpenPattern = buffer;
                     lastOpenPatternIndex = index;
                 } 
-                else if (PatternMatchConfig.IsMatchPatternSuffix(buffer))
+                else if (PatternMatchConfig.IsMatchPatternSuffix(buffer)  && lastOpenPattern != null && PatternMatchConfig.DoesSuffixMatchPrefix(lastOpenPattern, buffer))
                 {
-                    if (lastOpenPattern != null && PatternMatchConfig.DoesSuffixMatchPrefix(lastOpenPattern, buffer))
+                    TransformableText textCandidate = new TransformableText
                     {
-                        TransformableText textCandidate = new TransformableText
-                        {
-                            StartIndex = lastOpenPatternIndex,
-                            EndIndex = index + 1,
-                            Text = inputStatement.Substring(lastOpenPatternIndex, 2 + index - lastOpenPatternIndex),
-                            TransformerId = PatternMatchConfig.GetTransformerForPrefix(lastOpenPattern)
-                        };
+                        StartIndex = lastOpenPatternIndex,
+                        EndIndex = index + 1,
+                        Text = inputStatement.Substring(lastOpenPatternIndex, 2 + index - lastOpenPatternIndex),
+                        TransformerId = PatternMatchConfig.GetTransformerForPrefix(lastOpenPattern)
+                    };
 
-                        if (!WasTextAlreadyTransformed(statementId, textCandidate, scenarioContext)) 
-                        {
-                            result = textCandidate;
-                            RegisterTransformedText(statementId, textCandidate, scenarioContext);
-                            break;
-                        }
-                    } 
+                    if (!WasTextAlreadyTransformed(statementId, textCandidate, scenarioContext))
+                    {
+                        result = textCandidate;
+                        RegisterTransformedText(statementId, textCandidate, scenarioContext);
+                        break;
+                    }
                 }
             }
 

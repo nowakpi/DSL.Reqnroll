@@ -28,8 +28,11 @@ namespace DSL.ReqnrollPlugin
         public void InitializeTestRunner(string testWorkerId)
         {
             _testWorkerId = testWorkerId;
-            _testRunner?.InitializeTestRunner(testWorkerId);
-            _transformerAggregator.ScenarioContext = _testRunner.ScenarioContext;
+            if (_testRunner != null)
+            {
+                _testRunner.InitializeTestRunner(testWorkerId);
+                _transformerAggregator.ScenarioContext = _testRunner.ScenarioContext;
+            }
         }
 
         private string Transform(in string obj) => _transformerAggregator?.Transform(obj, ScenarioContext);
