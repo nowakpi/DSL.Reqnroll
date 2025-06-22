@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace DSL.ReqnrollPlugin.Helpers
 {
-    public static class SecureRandomHelper
+    internal static class SecureRandomHelper
     {
         private static readonly RandomNumberGenerator _randomGenerator = RandomNumberGenerator.Create();
 

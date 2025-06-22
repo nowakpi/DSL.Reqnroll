@@ -10,6 +10,8 @@ namespace DSL.ReqnrollPlugin.Transformers
     {
         private readonly string[] _supportedFunctions = { TodayFuncMatchInterpreter.FuncName, RandomFuncMatchInterpreter.FuncName };
 
+        public override byte OrderId { get => PatternMatchConfig.FunctionsMatchConfig.MatchOrder; }
+
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 
         string[] IFunctionTransformer.GetSupportedFunctions() => _supportedFunctions;
@@ -21,7 +23,7 @@ namespace DSL.ReqnrollPlugin.Transformers
             var match = PatternMatch.Parse(inputString, PatternMatchConfig.FunctionsMatchConfig);
             return match == null
                 ? inputString
-                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern)));
+                : match.ReplaceMatched(TransformPattern(match.MatchedPattern));
         }
 
         public virtual string TransformPattern(in string inputString)

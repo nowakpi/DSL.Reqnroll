@@ -20,14 +20,19 @@ namespace DSL.ReqnrollPlugin
         public ReqnrollPluginTestRunner(ITestExecutionEngine executionEngine, ITransformerAggregator transformerAggregator)
         {
             _testRunner = new TestRunner(executionEngine);
-            _transformerAggregator = transformerAggregator;
+            _transformerAggregator = transformerAggregator; 
+            _transformerAggregator.ScenarioContext = _testRunner.ScenarioContext;
         }
 
         [Obsolete("When building Reqnroll plugins one need to supply this method which is itself marked as obsolete in ITestRunner interface.")]
         public void InitializeTestRunner(string testWorkerId)
         {
             _testWorkerId = testWorkerId;
-            _testRunner?.InitializeTestRunner(testWorkerId);
+            if (_testRunner != null)
+            {
+                _testRunner.InitializeTestRunner(testWorkerId);
+                _transformerAggregator.ScenarioContext = _testRunner.ScenarioContext;
+            }
         }
 
         private string Transform(in string obj) => _transformerAggregator?.Transform(obj, ScenarioContext);

@@ -193,5 +193,20 @@ namespace Examples.Steps
         {
 
         }
+
+        [Then(@"verify table with expected values of variables:")]
+        public void ThenVerifyTableWithExpectedValuesOfVariables(Table table)
+        {
+            foreach (var row in table.Rows)
+            {
+                string? variableName = row?[0]?.ToString();
+                string? variableValue = row?[1]?.ToString();
+
+                if (!string.IsNullOrWhiteSpace(variableName) && !string.IsNullOrWhiteSpace(variableValue))
+                {
+                    _context?[variableName]?.Should().Be(variableValue);
+                }
+            }
+        }
     }
 }

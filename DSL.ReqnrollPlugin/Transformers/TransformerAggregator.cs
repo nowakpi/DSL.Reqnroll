@@ -1,22 +1,39 @@
-﻿using Reqnroll;
+﻿using DSL.ReqnrollPlugin.Helpers;
+using Reqnroll;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DSL.ReqnrollPlugin.Transformers
 {
     public class TransformerAggregator : ITransformerAggregator
     {
-        protected readonly LinkedList<ITransformer> _transformers = new LinkedList<ITransformer>();
+        public ScenarioContext ScenarioContext { get; set; }
 
-        public TransformerAggregator(IUserVariableTransformer customVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
+        protected readonly Dictionary<byte, ITransformer> _transformers = new Dictionary<byte, ITransformer>();
+
+        public TransformerAggregator(IUserVariableTransformer userVariableTransformer, IEnvironmentVariableTransformer environmentVariableTransformer, IFunctionTransformer functionTransformer)
         {
-            _transformers.AddLast(environmentVariableTransformer);
-            _transformers.AddLast(functionTransformer);
-            _transformers.AddLast(customVariableTransformer);
+            _transformers.Add(environmentVariableTransformer.OrderId, environmentVariableTransformer);
+            _transformers.Add(functionTransformer.OrderId, functionTransformer);
+            _transformers.Add(userVariableTransformer.OrderId, userVariableTransformer);
         }
 
         public string Transform(string inputString, ScenarioContext context)
         {
-            foreach (var transformer in _transformers) inputString = transformer.Transform(inputString, context);
+            if (string.IsNullOrEmpty(inputString)) { return null; }
+
+            TransformableText? text;
+            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString, context)) != null) 
+            {
+                TransformableText transformableText = (TransformableText) text;
+                var transformer = _transformers[transformableText.TransformerId];
+
+                string newLeftSide = inputString.Substring(0, transformableText.StartIndex);
+                string newRightSide = inputString.Substring(transformableText.EndIndex + 1);
+
+                inputString = newLeftSide + transformer.Transform(transformableText.Text, context) + newRightSide;
+            }
+
             return inputString;
         }
     }

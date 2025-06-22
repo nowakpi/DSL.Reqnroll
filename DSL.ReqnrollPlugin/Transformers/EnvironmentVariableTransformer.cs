@@ -6,6 +6,8 @@ namespace DSL.ReqnrollPlugin.Transformers
 {
     public class EnvironmentVariableTransformer : BaseParameterTransformer, IEnvironmentVariableTransformer
     {
+        public override byte OrderId { get => PatternMatchConfig.EnvironmentMatchConfig.MatchOrder; }
+
         protected override string TransformText(in string inputString, in ScenarioContext scenarioContext) => TransformText(inputString);
 
         public virtual string GetEnvironmentVariable(string key) => key == null ? key : Environment.GetEnvironmentVariable(key);
@@ -19,7 +21,7 @@ namespace DSL.ReqnrollPlugin.Transformers
 
             return match == null || string.IsNullOrEmpty(envVariableValue)
                 ? inputString
-                : TransformText(match.ReplaceMatched(envVariableValue));
+                : match.ReplaceMatched(envVariableValue);
         }
     }
 }
