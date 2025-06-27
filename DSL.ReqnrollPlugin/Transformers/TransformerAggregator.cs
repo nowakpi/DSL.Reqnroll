@@ -20,8 +20,8 @@ namespace DSL.ReqnrollPlugin.Transformers
 
         public string Transform(string inputString, ScenarioContext context)
         {
-            if (string.IsNullOrEmpty(inputString)) { return null; }
-
+            if (string.IsNullOrEmpty(inputString)) { return inputString; }
+            
             TransformableText? text;
             while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString, context)) != null) 
             {
