@@ -4,6 +4,13 @@ DSL.Reqnroll is Reqnroll plugin that enables use of dynamic test data in Reqnrol
 
 It's re-write of [SpecFlow.DSL](https://github.com/wenyuansong/Specflow.DSL) library, written originally by [Wenyuan(Ryan)](https://github.com/wenyuansong) and [Liam Flanagan](https://github.com/JovialJerboa), to align it with Reqnroll with multiple enhancements on the top.
 
+### Why to use it?
+Big benefit of the plugin is that authors of Reqnroll tests can maintain coherence and relationship between data points (great in finance), across multiple steps. 
+
+They can generate data (numbers, timestamps) without having to hardcode specific values in the feature files. It also helps to avoid duplication of data in multiple steps.
+
+Development team doesn't have to be engaged to make sometimes subtle changes in the step implementation code to accommodate changes in the test data.
+
 ### Background
 In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0001432&id=post) announced the end-of-life of the SpecFlow open source project. According to the announcement, SpecFlow reached its end-of-life on December 31, 2024. As of 1st January 2025, the SpecFlow GitHub projects have been deleted and the support section of the specflow.org website is disabled.
 
@@ -28,7 +35,7 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
 **Changes to interfaces and namespaces**:
    In order to employ clean code principles and prepare the code base for further enhancements some interfaces and namespaces have changed in version 1.2.0. 
    
-   Users of DSL.Reqnroll plugin are using _IParameterTransformer_ interface and _AddBespokeTransformer_ method to add custom transformers. _IParameterTransformer_ interface becomes obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
+   Users of DSL.Reqnroll plugin used to use _IParameterTransformer_ interface and _AddBespokeTransformer_ method to add custom transformers. _IParameterTransformer_ interface became obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
 
 **How custom variables work**:
    It actually creates key/value pairs in current ScenarioContext. So be careful not to conflict with your own context variables. 
@@ -75,9 +82,13 @@ In December 2024, [Tricentis](https://support-hub.tricentis.com/open?number=NEW0
      Then verify can login with username="[[name]]" and password="[[pwd]]"
 ```   
 
- - Support bespoke transformation
+ - More advanced examples: https://github.com/nowakpi/DSL.Reqnroll/blob/master/DSL.ReqnrollPlugin.Examples/Features/ComplexExamples.feature
 
- - Please note that _IParameterTransformer_ interface becomes obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
+ ## Other considerations: 
+ 
+ - Plugin supports bespoke transformation
+
+ - _IParameterTransformer_ interface became obsolete in version 1.2.0 - it may still be used but it will be removed in the future. It is adviced for users to use _IUserVariableTransformer_ interface from _DSL.ReqnrollPlugin.Transformers_ namespace, which also has _AddBespokeTransformer_ method to add bespoke transformations.
 ```
      for example, you want to map Today to YYYY:MM:dd programmatically, add the following code in one of your Reqnroll steps 
 	 or put it in BeforeScenario step.
