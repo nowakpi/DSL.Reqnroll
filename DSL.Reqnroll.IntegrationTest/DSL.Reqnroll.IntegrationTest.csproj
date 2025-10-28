@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Features\ComplexExamples.feature.cs"
+      Link="ComplexExamples.feature.cs"
+    />
+    <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Features\EnvironmentVariableExamples.feature.cs"
+      Link="EnvironmentVariableExamples.feature.cs"
+    />
+    <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Features\FunctionExamples.feature.cs"
+      Link="FunctionExamples.feature.cs"
+    />
+    <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Features\UserVariableExamples.feature.cs"
+      Link="UserVariableExamples.feature.cs"
+    />
+    <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Steps\ExamplesStepDefinitions.cs"
+      Link="ExamplesStepDefinitions.cs"
+    />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DSL.Reqnroll" Version="1.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
+    <PackageReference Include="Reqnroll.xUnit" Version="2.4.1" />
+    <PackageReference Include="xunit" Version="2.8.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0" />
+  </ItemGroup>
+</Project>
