@@ -14,3 +14,5 @@
 /DSL.ReqnrollPlugin.Examples/Features/UserVariableExamples.feature.cs
 /DSL.ReqnrollPlugin.Examples/Features/EnvironmentVariableExamples.feature.cs
 /DSL.ReqnrollPlugin.Examples/Features/ComplexExamples.feature.cs
+/DSL.Reqnroll.IntegrationTest/bin/
+/DSL.Reqnroll.IntegrationTest/obj/
