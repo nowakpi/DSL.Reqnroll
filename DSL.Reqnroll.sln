@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSL.ReqnrollPlugin.Examples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSL.ReqnrollPlugin.UnitTests", "DSL.ReqnrollPlugin.UnitTests\DSL.ReqnrollPlugin.UnitTests.csproj", "{3C2B3CCD-B12C-43BC-BF8D-8E15E493B5BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSL.Reqnroll.IntegrationTest", "DSL.Reqnroll.IntegrationTest\DSL.Reqnroll.IntegrationTest.csproj", "{C2FCD48A-1527-4048-9B57-FFC7AB642B08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{3C2B3CCD-B12C-43BC-BF8D-8E15E493B5BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C2B3CCD-B12C-43BC-BF8D-8E15E493B5BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C2B3CCD-B12C-43BC-BF8D-8E15E493B5BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2FCD48A-1527-4048-9B57-FFC7AB642B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2FCD48A-1527-4048-9B57-FFC7AB642B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2FCD48A-1527-4048-9B57-FFC7AB642B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2FCD48A-1527-4048-9B57-FFC7AB642B08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
