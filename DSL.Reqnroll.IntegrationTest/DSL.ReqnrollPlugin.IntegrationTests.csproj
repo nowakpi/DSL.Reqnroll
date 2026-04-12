@@ -16,10 +16,6 @@
       Link="EnvironmentVariableExamples.feature.cs"
     />
     <Compile
-      Include="..\DSL.ReqnrollPlugin.Examples\Features\FunctionExamples.feature.cs"
-      Link="FunctionExamples.feature.cs"
-    />
-    <Compile
       Include="..\DSL.ReqnrollPlugin.Examples\Features\UserVariableExamples.feature.cs"
       Link="UserVariableExamples.feature.cs"
     />
