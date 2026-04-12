@@ -22,19 +22,19 @@ namespace DSL.ReqnrollPlugin.Helpers
             return BitConverter.ToString(hashValue).Replace("-", "");
         }
 
-        private static bool WasTextAlreadyTransformed(string statementId, TransformableText transformableText, Dictionary<string, object> scenarioContext)
+        private static bool WasTextAlreadyTransformed(string statementId, TransformableText transformableText, Dictionary<string, object> transformationTracker)
         {
             string key = statementId + KEY_SEPARATOR + transformableText.StartIndex.ToString() + KEY_SEPARATOR + transformableText.EndIndex + KEY_SEPARATOR + transformableText.Text;
-            return scenarioContext.ContainsKey(key);
+            return transformationTracker.ContainsKey(key);
         }
 
-        private static void RegisterTransformedText(string statementId, TransformableText transformableText, Dictionary<string, object> scenarioContext)
+        private static void RegisterTransformedText(string statementId, TransformableText transformableText, Dictionary<string, object> transformationTracker)
         {
             string key = statementId + KEY_SEPARATOR + transformableText.StartIndex.ToString() + KEY_SEPARATOR + transformableText.EndIndex + KEY_SEPARATOR + transformableText.Text;
-            scenarioContext.Add(key, true);
+            transformationTracker.Add(key, true);
         }
 
-        public static TransformableText? GetAnyTransformableText(in string inputStatement, Dictionary<string, object> scenarioContext)
+        public static TransformableText? GetAnyTransformableText(in string inputStatement, Dictionary<string, object> transformationTracker)
         {
             if (inputStatement == null || string.IsNullOrWhiteSpace(inputStatement)) return null;
 
@@ -62,10 +62,10 @@ namespace DSL.ReqnrollPlugin.Helpers
                         TransformerId = PatternMatchConfig.GetTransformerForPrefix(lastOpenPattern)
                     };
 
-                    if (!WasTextAlreadyTransformed(statementId, textCandidate, scenarioContext))
+                    if (!WasTextAlreadyTransformed(statementId, textCandidate, transformationTracker))
                     {
                         result = textCandidate;
-                        RegisterTransformedText(statementId, textCandidate, scenarioContext);
+                        RegisterTransformedText(statementId, textCandidate, transformationTracker);
                         break;
                     }
                 }

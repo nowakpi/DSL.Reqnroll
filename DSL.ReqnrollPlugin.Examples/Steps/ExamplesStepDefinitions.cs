@@ -208,5 +208,20 @@ namespace Examples.Steps
                 }
             }
         }
+
+        [Then(@"verify column values are equal for each row:")]
+        public void ThenVerifyColumnValuesAreEqualForEachRow(Table table)
+        {
+            foreach (var row in table.Rows)
+            {
+                string? variableFromColumnA = row?[0]?.ToString();
+                string? variableFromColumnB = row?[1]?.ToString();
+
+                if (!string.IsNullOrWhiteSpace(variableFromColumnA) && !string.IsNullOrWhiteSpace(variableFromColumnB))
+                {
+                    variableFromColumnA.Should().Be(variableFromColumnB);
+                }
+            }
+        }
     }
 }

@@ -21,9 +21,10 @@ namespace DSL.ReqnrollPlugin.Transformers
         public string Transform(string inputString, ScenarioContext context)
         {
             if (string.IsNullOrEmpty(inputString)) { return inputString; }
-            
+
+            var transformedTracker = new Dictionary<string, object>();
             TransformableText? text;
-            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString, context)) != null) 
+            while ((text = TransformerSequenceGenerator.GetAnyTransformableText(inputString, transformedTracker)) != null) 
             {
                 TransformableText transformableText = (TransformableText) text;
                 var transformer = _transformers[transformableText.TransformerId];

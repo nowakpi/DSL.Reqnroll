@@ -10,8 +10,20 @@ Scenario: I use TODAY to define formatted date/time with hour offset in local ti
 	Then verify string "{{L#TODAY-3H#dd-MM-yyyy HH:mm:ss}}" equals to today in local time 3 hours ago in format of dd-MM-yyyy HH:mm:ss
 
 Scenario: I use TODAY function without parameters as a variable
-	When entered string "[[TODAY={{TODAY}}]]"
-	Then verify string "[[TODAY]]" equals "{{TODAY}}"
+	When entered string "[[DZIS={{TODAY#dd-MM-yyyy}}]]"
+	Then verify string "[[DZIS]]" equals "{{TODAY#dd-MM-yyyy}}"
+	And verify string "[[DZIS]]" equals "{{TODAY#dd-MM-yyyy}}"
+	And verify string "[[DZIS]]" equals "{{TODAY#dd-MM-yyyy}}"
+
+Scenario: I use TODAY function and TODAY as variable in the table
+	When use table with the following details: 
+	 | Field     | Value                            |
+	 | Field 1   | [[DZIS={{TODAY#dd-MM-yyyy}}]]    |
+	Then verify column values are equal for each row:
+	 | Column A  | Column B                |
+	 | [[DZIS]]  | {{TODAY#dd-MM-yyyy}}    |
+	 | [[DZIS]]  | {{TODAY#dd-MM-yyyy}}    |
+	 | [[DZIS]]  | {{TODAY#dd-MM-yyyy}}    |
 
 Scenario: I use RANDOM function without parameters as a variable
 	When entered string "[[RVAL={{RANDOM}}]]"
