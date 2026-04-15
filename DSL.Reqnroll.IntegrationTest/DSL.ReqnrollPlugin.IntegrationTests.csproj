@@ -20,12 +20,16 @@
       Link="UserVariableExamples.feature.cs"
     />
     <Compile
+      Include="..\DSL.ReqnrollPlugin.Examples\Features\FunctionExamples.feature.cs"
+      Link="FunctionExamples.feature.cs"
+    />
+    <Compile
       Include="..\DSL.ReqnrollPlugin.Examples\Steps\ExamplesStepDefinitions.cs"
       Link="ExamplesStepDefinitions.cs"
     />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DSL.Reqnroll" Version="1.3.1" />
+    <PackageReference Include="DSL.Reqnroll" Version="1.3.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
     <PackageReference Include="FluentAssertions" Version="6.11.0" />
     <PackageReference Include="Reqnroll.xUnit" Version="2.4.1" />
