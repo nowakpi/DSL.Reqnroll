@@ -61,9 +61,9 @@ namespace DSL.ReqnrollPlugin
             if (_testRunner != null) await _testRunner.WhenAsync(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 
-        public void OnScenarioInitialize(ScenarioInfo scenarioInfo)
+        public void OnScenarioInitialize(ScenarioInfo scenarioInfo, RuleInfo ruleInfo)
         {
-            if (_testRunner != null) _testRunner.OnScenarioInitialize(scenarioInfo);
+            if (_testRunner != null) _testRunner.OnScenarioInitialize(scenarioInfo, ruleInfo);
         }
 
         public async Task OnScenarioStartAsync()
@@ -73,9 +73,9 @@ namespace DSL.ReqnrollPlugin
             await _testRunner?.OnScenarioStartAsync();
         }
 
-        public void SkipScenario()
+        public async Task SkipScenarioAsync()
         {
-            if (_testRunner != null) _testRunner.SkipScenario();
+            if (_testRunner != null) await _testRunner.SkipScenarioAsync();
         }
 
         public async Task OnFeatureStartAsync(FeatureInfo featureInfo)
