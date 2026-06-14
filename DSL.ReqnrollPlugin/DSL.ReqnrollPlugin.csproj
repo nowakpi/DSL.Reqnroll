@@ -27,7 +27,7 @@
 		<RepositoryUrl>https://github.com/nowakpi/DSL.Reqnroll</RepositoryUrl>
 		<PackageTags>Reqnroll DSL variables context</PackageTags>
 		<PackageReleaseNotes>
-			v1.4.0: Upgrading to Reqnroll 3.0.0+ (consumers can use any Reqnroll version >= 3.0.0)
+			v1.4.0-preview.1: Upgrading to Reqnroll 3.0.0+ (consumers can use any Reqnroll version >= 3.0.0)
 			v1.3.2: Bug fix: Gherkin statement will be transformed correctly when repeated in the same scenario
 			v1.3.1: Bug fix: empty string are transformed into empty string instead of null
 			v1.3.0: Adding support for more complex mixes of various transformations
