@@ -16,3 +16,4 @@
 /DSL.ReqnrollPlugin.Examples/Features/ComplexExamples.feature.cs
 /DSL.Reqnroll.IntegrationTest/bin/
 /DSL.Reqnroll.IntegrationTest/obj/
+.DS_Store

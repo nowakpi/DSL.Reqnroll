@@ -12,10 +12,12 @@ namespace Examples.Steps
     public sealed class ExamplesStepDefinitions
     {
         ScenarioContext _context;
+        ITestRunner _testRunner;
 
-        public ExamplesStepDefinitions(ScenarioContext context)
+        public ExamplesStepDefinitions(ScenarioContext context, ITestRunner testRunner)
         {
             _context = context;
+            _testRunner = testRunner;
         }
 
         [When(@"entered int (.*)")]
@@ -36,9 +38,9 @@ namespace Examples.Steps
         }
 
         [When(@"executed on Windows machine")]
-        public void WhenExecutedOnWindowsMachine()
+        public async Task WhenExecutedOnWindowsMachine()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) throw new OperationCanceledException("Not a Windows machine.");
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) await _testRunner.SkipScenarioAsync();
         }
 
         [When(@"environment variable ""(.*)"" has a value of ""(.*)""")]
